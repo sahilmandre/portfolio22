@@ -1,0 +1,19 @@
+.headerPosition {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+}
+.header-section {
+  color: #fff;
+}
+
+.brand {
+  color: #fff;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 32px;
+  line-height: 45px;
+}
+.nav-link {
+  color: #fff;
+}
