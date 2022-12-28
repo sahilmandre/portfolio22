@@ -1,0 +1,43 @@
+.overlay {
+  background-image: linear-gradient(0deg, #24203b, rgb(15 14 30));
+}
+
+.img-responsive {
+  height: 70px;
+  width: 70px;
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  border-radius: 40px;
+  padding: 9px;
+}
+
+.card-color {
+  background: #1b1924;
+}
+
+.card {
+  padding: 60px 40px;
+}
+
+.card-title {
+  color: #fff;
+  font-size: 26px;
+}
+
+.card-subtitle {
+  color: #9189b3;
+  font-family: Poppins;
+  font-size: 16px;
+}
+.card-button {
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .card-gap {
+    column-gap: 2rem !important;
+    row-gap: 2rem !important;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+}

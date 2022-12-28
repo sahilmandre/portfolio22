@@ -1,0 +1,28 @@
+<div class="overlay">
+  <div class="col-12 px-5 pb-5">
+    <div
+      class="row mx-auto gap-3 row-cols-1 row-cols-xs-1 row-cols-md-3 row-cols-sm-1 card-gap"
+    >
+      <div class="card card-color col" *ngFor="let card of cards">
+        <img
+          src="{{ card.image }}"
+          class="img-responsive card-img-top"
+          alt="star icon for experience"
+        />
+        <div class="card-body">
+          <h5 class="card-title mt-4">{{ card.title }}</h5>
+          <h6 class="card-subtitle mb-2 mt-4">
+            {{ card.subtitle }}
+          </h6>
+
+          <a
+            href="#"
+            class="card-link d-flex align-items-center card-button mt-5"
+            >Read more
+            <span class="material-symbols-outlined"> arrow_right_alt </span></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

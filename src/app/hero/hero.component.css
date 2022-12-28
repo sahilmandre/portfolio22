@@ -1,5 +1,6 @@
-.hero-image {
+#hero-image {
   background-image: url("../../assets/images/bg1.jpg");
+
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
@@ -12,12 +13,13 @@
   opacity: 0.8;
   mix-blend-mode: hard-light;
 }
-
+.overlay {
+  background-image: linear-gradient(0deg, #24203b, rgba(36, 32, 59, 0));
+}
 .header-title {
   position: relative;
   color: #fff;
-  top: 35%;
-  left: 5%;
+  top: 32%;
 }
 
 .header-title1 {
