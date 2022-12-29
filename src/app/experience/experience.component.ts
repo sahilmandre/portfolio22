@@ -31,7 +31,10 @@ export class ExperienceComponent {
     },
   ];
 
+  showMore: boolean = false;
   stars: number = 5;
+  experienceDescription: string =
+    'I have experience working with WordPress, Wix, and Heroku for web development and hosting. I also have experience with NodeJS, React, and Angular for building web applications. In addition, I am proficient in HTML, CSS, Bootstrap, and Tailwind for front-end design and development. I have also worked with MongoDb for database management.';
 
   starsArray = Array(this.stars);
 }

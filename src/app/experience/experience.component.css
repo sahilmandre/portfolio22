@@ -73,6 +73,24 @@
   font-size: 2.2rem;
 }
 
+.expHeading {
+  font-size: 3.2rem;
+  color: #fff;
+}
+
+.techPic {
+  height: 50rem;
+  width: auto;
+  border-top-right-radius: 18rem;
+}
+
+.mainHeading {
+  text-align: left;
+  max-width: 65%;
+  margin-top: -10%;
+  margin-left: 15%;
+}
+
 /* resposnsive CSs down below  */
 /* ######################################################### */
 /* ######################################################### */

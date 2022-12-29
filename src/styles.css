@@ -23,3 +23,19 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.description {
+  color: #9189b3;
+  font-family: Poppins;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.mainHeading {
+  font-size: 6.4rem;
+  font-weight: 700;
+  font-family: "poppins";
+  line-height: 1;
+  letter-spacing: -0.032em;
+  color: #fff;
+}

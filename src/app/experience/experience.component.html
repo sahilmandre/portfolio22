@@ -38,13 +38,57 @@
 <!-- ################     TEMPLATES WRITTEN BELOW     ########################## -->
 
 <ng-template #technologiesContainer>
-  <div class="col-12 p-5">
-    <span class="material-symbols-outlined img-responsive ms-1">
-      bookmark_added
-    </span>
-    <h2 class="technologyHeading">0012+</h2>
-    <div class="d-flex ms-1">
-      <mat-icon class="starIcon" *ngFor="let star of starsArray">star</mat-icon>
+  <div class="col-12 p-5 row align-items-center">
+    <div class="col-4">
+      <span class="material-symbols-outlined img-responsive ms-1">
+        bookmark_added
+      </span>
+      <h2 class="technologyHeading">0012+</h2>
+      <div class="d-flex ms-1">
+        <mat-icon class="starIcon" *ngFor="let star of starsArray"
+          >star</mat-icon
+        >
+      </div>
+
+      <div class="ms-1">
+        <div class="expHeading my-4">Technology Experience</div>
+        <div class="expDescription mt-4 description">
+          <span>
+            {{
+              showMore
+                ? experienceDescription
+                : (experienceDescription | slice : 0 : 210)
+            }}
+            <span *ngIf="!showMore">...</span>
+          </span>
+          <span class="mt-4 d-block">
+            <a
+              class="d-flex align-items-center text-decoration-none"
+              href="javascript:;"
+              *ngIf="!showMore"
+              (click)="showMore = true"
+              >Read more
+              <span class="material-symbols-outlined"> arrow_right_alt </span>
+            </a>
+            <a
+              class="d-flex align-items-center text-decoration-none"
+              href="javascript:;"
+              *ngIf="showMore"
+              (click)="showMore = false"
+            >
+              <span class="material-symbols-outlined"> keyboard_backspace </span
+              >Read less
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-8 p-5">
+      <div class="w-100 justify-content-end d-flex">
+        <img class="techPic" src="../../assets/images/techPic.png" alt="" />
+      </div>
+      <div class="mainHeading">Technology is the Future of the World.</div>
     </div>
   </div>
 </ng-template>
