@@ -3,15 +3,21 @@
     <div
       class="row mx-auto gap-3 row-cols-1 row-cols-xs-1 row-cols-md-3 row-cols-sm-1 card-gap"
     >
-      <div class="card card-color col" *ngFor="let card of cards">
-        <img
+      <div
+        class="card card-color col bg-transparent"
+        *ngFor="let card of cards"
+      >
+        <!-- <img
           src="{{ card.image }}"
-          class="img-responsive card-img-top"
+          class="img-responsive card-img-top material-icons"
           alt="star icon for experience"
-        />
-        <div class="card-body">
+        /> -->
+        <mat-icon class="img-responsive card-img-top" id="icon-star"
+          >star</mat-icon
+        >
+        <div class="card-body pb-0">
           <h5 class="card-title mt-4">{{ card.title }}</h5>
-          <h6 class="card-subtitle mb-2 mt-4">
+          <h6 class="card-subtitle mb-0">
             {{ card.subtitle }}
           </h6>
 

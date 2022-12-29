@@ -9,25 +9,39 @@
   border: 2px solid rgba(255, 255, 255, 0.05);
   border-radius: 40px;
   padding: 9px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+  color: #8567cc;
+}
+
+.card-color:first-child {
+  background: #1b1924 !important;
+  border: none;
 }
 
 .card-color {
-  background: #1b1924;
+  border: 2px solid #8567cc;
 }
 
 .card {
   padding: 60px 40px;
+  padding-bottom: 20px;
 }
 
 .card-title {
   color: #fff;
   font-size: 26px;
+  line-height: 30px;
+  min-height: 60px;
 }
 
 .card-subtitle {
   color: #9189b3;
   font-family: Poppins;
   font-size: 16px;
+  line-height: 26px;
+  min-height: 156px;
 }
 .card-button {
   text-decoration: none;
