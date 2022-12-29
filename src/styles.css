@@ -7,5 +7,5 @@ body {
 }
 body {
   background-color: #262438;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif !important;
 }

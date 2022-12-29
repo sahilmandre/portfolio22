@@ -1,5 +1,6 @@
 .overlay {
-  background-image: linear-gradient(0deg, #24203b, rgb(15 14 30));
+  /* background-image: linear-gradient(0deg, #24203b, rgb(15 14 30)); */
+  background-image: radial-gradient(#211d37, rgb(31 28 51));
 }
 
 .img-responsive {
