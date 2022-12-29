@@ -30,4 +30,8 @@ export class ExperienceComponent {
       image: '../../assets/icons/star_FILL0_wght400_GRAD0_opsz48.png',
     },
   ];
+
+  stars: number = 5;
+
+  starsArray = Array(this.stars);
 }

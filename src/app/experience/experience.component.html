@@ -31,4 +31,20 @@
       </div>
     </div>
   </div>
+
+  <ng-container *ngTemplateOutlet="technologiesContainer"></ng-container>
 </div>
+
+<!-- ################     TEMPLATES WRITTEN BELOW     ########################## -->
+
+<ng-template #technologiesContainer>
+  <div class="col-12 p-5">
+    <span class="material-symbols-outlined img-responsive ms-1">
+      bookmark_added
+    </span>
+    <h2 class="technologyHeading">0012+</h2>
+    <div class="d-flex ms-1">
+      <mat-icon class="starIcon" *ngFor="let star of starsArray">star</mat-icon>
+    </div>
+  </div>
+</ng-template>
