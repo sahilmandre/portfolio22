@@ -1,9 +1,11 @@
-<div class="" id="hero-image">
+<div class="" id="hero-image" #heroSection>
   <div class="overlay h-100">
-    <div class="header-title ps-5 col-md-5 col-sm-8">
+    <div
+      class="header-title ps-5 col-lg-6 col-xl-5 col-xs-12 col-md-8 col-sm-10"
+    >
       <h2 class="header-title1">Hi, my name is</h2>
 
-      <div>
+      <div class="header-group">
         <h1 class="header-title2">Sahil Mandre</h1>
         <h1 class="header-title2">I build things for</h1>
         <h1 class="header-title2">the web.</h1>
@@ -14,5 +16,36 @@
         occasionally designing) exceptional digital experiences.
       </p>
     </div>
+
+    <div class="d-flex justify-content-center downGroup">
+      <mat-icon
+        *ngIf="!isChecked"
+        class="downArrow downArrow-down"
+        (click)="
+          experienceSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          clicked(true)
+        "
+        >keyboard_arrow_down</mat-icon
+      >
+      <mat-icon
+        *ngIf="isChecked"
+        class="downArrow downArrow-down"
+        (click)="
+          heroSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          clicked(false)
+        "
+        >keyboard_arrow_up</mat-icon
+      >
+    </div>
   </div>
+</div>
+
+<div class="" #experienceSection>
+  <app-experience></app-experience>
 </div>

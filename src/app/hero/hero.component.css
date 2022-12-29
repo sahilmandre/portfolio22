@@ -20,19 +20,53 @@
 .header-title {
   position: relative;
   color: #fff;
-  top: 32%;
+  top: 24%;
   mix-blend-mode: normal;
 }
 
 .header-title1 {
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 400;
+  font-family: "poppins";
 }
 .header-title2 {
-  font-size: 48px;
-  font-weight: 800;
+  font-size: 6.4rem;
+  font-weight: 700;
+  font-family: "poppins";
+  line-height: 1;
+  letter-spacing: -0.032em;
 }
 .header-title-subtext {
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 400;
+  line-height: 2.6rem;
+}
+
+.header-group {
+  margin-top: 4%;
+}
+
+.downArrow {
+  font-size: 3rem;
+  padding: 3rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fff;
+  border-radius: 6rem;
+}
+.downArrow:hover {
+  transform: scale(1.05, 1.05);
+}
+.downArrow-down::after {
+  border: 3px solid rgb(27 25 45);
+  color: #1d1a30;
+  transform: translateY(0%) rotate(0deg);
+}
+
+.downGroup {
+  height: 45vh;
+  align-items: center;
+  margin-top: 5%;
 }
