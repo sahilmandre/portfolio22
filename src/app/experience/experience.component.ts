@@ -36,5 +36,8 @@ export class ExperienceComponent {
   experienceDescription: string =
     'I have experience working with WordPress, Wix, and Heroku for web development and hosting. I also have experience with NodeJS, React, and Angular for building web applications. In addition, I am proficient in HTML, CSS, Bootstrap, and Tailwind for front-end design and development. I have also worked with MongoDb for database management.';
 
+  mainHeadingDescription: string =
+    'I have four years of experience creating websites for various clients and organizations. Proficient in multiple technologies, I am able to deliver high-quality, professional websites that meet the needs of my clients.';
+
   starsArray = Array(this.stars);
 }

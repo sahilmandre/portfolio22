@@ -90,6 +90,11 @@
   margin-top: -10%;
   margin-left: 15%;
 }
+.mainHeadingDescription {
+  text-align: left;
+  max-width: 65%;
+  margin-left: 15%;
+}
 
 /* resposnsive CSs down below  */
 /* ######################################################### */
@@ -119,6 +124,12 @@
     text-align: left;
     max-width: 65%;
     margin-top: -25%;
+    margin-left: 7%;
+  }
+
+  .mainHeadingDescription {
+    text-align: left;
+    max-width: 90%;
     margin-left: 7%;
   }
 }
