@@ -103,3 +103,22 @@
     justify-content: center;
   }
 }
+
+@media (max-width: 920px) {
+  .techLeftSection {
+    width: 100%;
+  }
+
+  .techRightSection {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+  }
+
+  .mainHeading {
+    text-align: left;
+    max-width: 65%;
+    margin-top: -25%;
+    margin-left: 7%;
+  }
+}

@@ -70,3 +70,12 @@
   align-items: center;
   margin-top: 5%;
 }
+
+/* ######## Resposnsive media queries written below ########### */
+/* ######################################################## */
+
+@media (max-width: 768px) {
+  .downGroup {
+    display: none !important;
+  }
+}
