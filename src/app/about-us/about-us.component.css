@@ -1,0 +1,77 @@
+.backgroundAbout {
+  background-image: radial-gradient(#211d37, rgb(31 28 51));
+  z-index: -100;
+  position: relative;
+  height: 95vh;
+}
+
+.aboutPic {
+  height: 50rem;
+  width: 50rem;
+  border-top-right-radius: 18rem;
+  object-fit: cover;
+  position: absolute;
+  z-index: 1;
+  bottom: 19%;
+  left: 5%;
+}
+
+.box {
+  height: 18rem;
+  width: 24rem;
+  background: linear-gradient(90deg, #7a63d2, #b266d2);
+  left: 4%;
+  position: absolute;
+  bottom: 17%;
+  top: auto;
+  z-index: -10;
+}
+
+.aboutHeading {
+  color: #7a63d2;
+  font-family: poppins;
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+
+.aboutHeadingIcon {
+  background: linear-gradient(90deg, #7a63d2, #b266d2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-size: 3.4rem;
+  height: auto;
+  width: auto;
+  margin-left: 1rem;
+}
+
+@media (max-width: 920px) {
+  .aboutLeft {
+    width: 100%;
+  }
+  .aboutRight {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+  }
+  .background {
+    background-image: radial-gradient(#211d37, rgb(31 28 51));
+  }
+}
+
+@media (max-width: 1080px) {
+  .aboutRight {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+  }
+
+  .background {
+    background-image: radial-gradient(#211d37, rgb(31 28 51));
+  }
+
+  .aboutPic {
+    width: 88%;
+  }
+}
