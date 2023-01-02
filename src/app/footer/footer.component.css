@@ -1,0 +1,31 @@
+.footerTitle {
+  font-size: 3.2rem;
+  color: #b266d2;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.footerTitleNormal {
+  font-size: 3.2rem;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.footerTitleNormal:hover {
+  color: #b266d2;
+}
+
+.footerGroup {
+  margin: 7rem 5rem;
+}
+
+.downloadLink {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.downloadLink:hover {
+  color: #b266d2;
+}

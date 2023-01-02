@@ -85,3 +85,8 @@ body {
     height: auto !important;
   }
 }
+
+.footerBackground {
+  background: #1b1924;
+  width: 100%;
+}
