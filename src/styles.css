@@ -76,12 +76,12 @@ body {
 
 @media (max-width: 770px) {
   .projectsBackground {
-    height: 167%;
+    height: 167% !important;
   }
 }
 
-@media (min-width: 576px), (max-width: 576px) {
+@media (max-width: 576px) {
   .projectsBackground {
-    height: auto;
+    height: auto !important;
   }
 }
