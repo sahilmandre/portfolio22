@@ -73,3 +73,15 @@ body {
   width: 100%;
   height: 117%;
 }
+
+@media (max-width: 770px) {
+  .projectsBackground {
+    height: 167%;
+  }
+}
+
+@media (min-width: 576px), (max-width: 576px) {
+  .projectsBackground {
+    height: auto;
+  }
+}

@@ -1,6 +1,6 @@
 <div class="projectsBackground p-5 row mx-0">
   <!-- Left Section of the page  -->
-  <div class="col-5 mt-5 pt-3 projectLeftSection">
+  <div class="col-12 col-md-5 mt-5 pt-3 projectLeftSection">
     <div *ngFor="let text of projectContent">
       <div class="projectTitle title">
         {{ text.title }}
@@ -14,8 +14,8 @@
   </div>
 
   <!-- Right section of the page  -->
-  <div class="col-7 mt-5 pt-3 px-5 projectRightSection row">
-    <div class="col-6">
+  <div class="col-12 col-md-7 mt-5 pt-3 ps-md-5 projectRightSection row">
+    <div class="col-12 col-md-6 col-sm-6">
       <div class="card card_col_1 mb-4" *ngFor="let card of cardCollection_1">
         <img src="{{ card.imgSrc }}" class="card-img-top" alt="..." />
         <div class="card-body">
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div class="col-6 mt-5">
+    <div class="col-12 col-md-6 col-sm-6 mt-5">
       <div class="card card_col_2 mb-4" *ngFor="let card of cardCollection_2">
         <img src="{{ card.imgSrc }}" class="card-img-top" alt="..." />
         <div class="card-body">
