@@ -29,3 +29,13 @@
 .downloadLink:hover {
   color: #b266d2;
 }
+
+.hr {
+  background: linear-gradient(90deg, #7a63d2, rgba(27, 25, 36, 0));
+  flex: none;
+  height: 2px;
+  margin: 0px 50px 0px;
+  opacity: 0.2;
+  width: calc(100% - 100px);
+  max-width: calc(100% - 100px);
+}
