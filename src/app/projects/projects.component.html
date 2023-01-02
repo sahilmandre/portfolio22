@@ -45,3 +45,59 @@
     </div>
   </div>
 </div>
+
+<div class="contactsBackground">
+  <div class="container-fluid p-5">
+    <div class="contactHeading subHeading">Contact Me</div>
+    <form class="row g-3 formTextFields">
+      <div class="row">
+        <div class="col">
+          <label for="inputName" class="form-label">Full Name</label>
+          <input
+            type="text"
+            class="formInputFields"
+            id="inputName"
+            placeholder="Your full name"
+          />
+        </div>
+        <div class="col">
+          <label for="inputEmail" class="form-label">Email</label>
+          <input
+            type="email"
+            class="formInputFields"
+            id="inputEmail"
+            placeholder="Your email address"
+          />
+        </div>
+        <div class="col">
+          <label for="phoneNumber" class="form-label">Phone Number</label>
+          <input
+            type="tel"
+            class="formInputFields"
+            id="phoneNumber"
+            placeholder="Your phone number"
+          />
+        </div>
+      </div>
+
+      <div class="col-12">
+        <label for="inputMessage" class="form-label">Message</label>
+
+        <textarea
+          class="formInputFields"
+          id="inputMessage"
+          placeholder="Your message here"
+        ></textarea>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="sendButton">
+          <span class="buttontext d-flex mr-4"
+            >Send Message
+            <mat-icon class="ms-4">arrow_right_alt</mat-icon></span
+          >
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

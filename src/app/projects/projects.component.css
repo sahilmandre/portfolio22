@@ -26,6 +26,90 @@
   border-top-right-radius: 1rem;
   border-top-left-radius: 1rem;
 }
+
 .card-body {
   padding: 2rem 3rem;
+}
+
+/* Contacts Section  */
+.contactsBackground {
+  background-image: radial-gradient(#211d37, rgb(31 28 51));
+}
+
+.contactHeading {
+  margin-top: 10%;
+}
+.formTextFields {
+  color: #ffffff;
+  font-family: Poppins;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0em;
+  line-height: 1.4;
+  margin-top: 5%;
+}
+
+.formInputFields {
+  background: #1b1924;
+  border-radius: 10px;
+  border: 2px solid rgba(178, 102, 210, 0.2);
+  color: #aba7c3;
+  flex: none;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  height: 6rem;
+  justify-content: center;
+  letter-spacing: 0em;
+  line-height: 1.4;
+  opacity: 1;
+  padding: 10px 25px 10px;
+  text-align: left;
+  width: 100%;
+  max-width: 100%;
+  outline: none;
+}
+
+.formInputFields:hover {
+  border: 2px solid rgb(178, 102, 210) !important;
+  outline: none !important;
+}
+.formInputFields:active {
+  border: 2px solid rgb(178, 102, 210) !important;
+  outline: none !important;
+}
+.formInputFields:focus {
+  border: 2px solid rgb(178, 102, 210) !important;
+  outline: none !important;
+}
+#inputMessage {
+  height: 21rem;
+}
+
+.sendButton {
+  width: auto;
+  height: 6rem;
+  border-radius: 3rem;
+  max-width: 100%;
+
+  padding: 0 3rem 0 4rem;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%);
+  background: linear-gradient(90deg, #7a63d2, #b266d2);
+  transition-duration: 600ms;
+  border: none;
+}
+
+.buttontext {
+  line-height: 1.4;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+textarea {
+  resize: none;
 }

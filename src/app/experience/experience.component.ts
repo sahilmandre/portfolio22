@@ -24,7 +24,7 @@ export class ExperienceComponent {
       image: '../../assets/icons/star_FILL0_wght400_GRAD0_opsz48.png',
     },
     {
-      title: 'Promact Infotect | Vadodara',
+      title: 'Promact Infotech | Vadodara',
       subtitle:
         'I gained exposure to a variety of technologies while working as a trainee web developer, including NodeJs, Express, MongoDb, HTML, and CSS.',
       image: '../../assets/icons/star_FILL0_wght400_GRAD0_opsz48.png',
