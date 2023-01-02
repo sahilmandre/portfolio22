@@ -1,1 +1,47 @@
-<p>projects works!</p>
+<div class="projectsBackground p-5 row mx-0">
+  <!-- Left Section of the page  -->
+  <div class="col-5 mt-5 pt-3 projectLeftSection">
+    <div *ngFor="let text of projectContent">
+      <div class="projectTitle title">
+        {{ text.title }}
+        <mat-icon class="titleIcon">collections_bookmark</mat-icon>
+      </div>
+      <div class="projectHeading mainHeading mt-5">{{ text.heading }}</div>
+      <div class="projectDescription description col-9 mt-5">
+        {{ text.description }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Right section of the page  -->
+  <div class="col-7 mt-5 pt-3 px-5 projectRightSection row">
+    <div class="col-6">
+      <div class="card card_col_1 mb-4" *ngFor="let card of cardCollection_1">
+        <img src="{{ card.imgSrc }}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title cardTitle">{{ card.title }}</h5>
+          <p class="card-text description">
+            {{ card.cardDesc }}
+          </p>
+          <a href="{{ card.redirectTo }}" class="btn btn-primary"
+            >Live Project</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-6 mt-5">
+      <div class="card card_col_2 mb-4" *ngFor="let card of cardCollection_2">
+        <img src="{{ card.imgSrc }}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title cardTitle">{{ card.title }}</h5>
+          <p class="card-text description">
+            {{ card.cardDesc }}
+          </p>
+          <a href="{{ card.redirectTo }}" class="btn btn-primary"
+            >Live Project</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

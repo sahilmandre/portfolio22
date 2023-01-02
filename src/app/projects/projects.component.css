@@ -1,0 +1,31 @@
+.projectHeading {
+  font-size: 3.9rem;
+}
+.card_col_1 {
+  border-radius: 1rem;
+  background: #2b2354;
+  padding: 0 0 3rem 0;
+}
+.card_col_2 {
+  border-radius: 1rem;
+  background: #2b2354;
+  padding: 0 0 3rem 0;
+}
+
+.card_col_1:nth-child(2) {
+  background: linear-gradient(45deg, #7a63d2, #b266d2);
+}
+
+.cardTitle {
+  font-size: 3.2rem;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.card-img-top {
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+}
+.card-body {
+  padding: 2rem 3rem;
+}
