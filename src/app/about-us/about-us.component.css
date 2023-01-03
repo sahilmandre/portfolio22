@@ -61,6 +61,10 @@
 }
 
 @media (max-width: 1080px) {
+  .aboutLeft {
+    width: 100%;
+  }
+
   .aboutRight {
     width: 100%;
     display: grid;
@@ -73,5 +77,15 @@
 
   .aboutPic {
     width: 88%;
+    position: relative;
+  }
+
+  .backgroundAbout {
+    height: inherit;
+  }
+
+  .box {
+    left: 4%;
+    bottom: 37%;
   }
 }
