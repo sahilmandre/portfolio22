@@ -6,22 +6,24 @@ import { HeroComponent } from './hero/hero.component';
 import { ProjectsComponent } from './projects/projects.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    children: [
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
-      },
-      {
-        path: 'about-us',
-        component: AboutUsComponent,
-      },
-    ],
-  },
-  { path: 'home', component: HeroComponent },
-  { path: 'about', component: AboutUsComponent },
+  // {
+  //   path: '',
+  //   children: [
+  //     {
+  //       path: '',
+  //       redirectTo: 'home',
+  //       pathMatch: 'full',
+  //     },
+  //     {
+  //       path: 'about',
+  //       component: AboutUsComponent,
+  //     },
+  //   ],
+  // },
+  // { path: 'home', component: HeroComponent },
+  // { path: 'about', component: AboutUsComponent },
+  // { path: 'projects', component: ProjectsComponent },
+  // { path: 'experience', component: ExperienceComponent },
 ];
 
 @NgModule({
