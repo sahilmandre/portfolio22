@@ -16,7 +16,8 @@
 }
 
 .footerGroup {
-  margin: 7rem 5rem;
+  margin: 7rem 0;
+  padding-inline: 4%;
 }
 
 .downloadLink {
