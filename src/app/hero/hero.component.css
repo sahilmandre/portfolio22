@@ -13,6 +13,7 @@
   /* opacity: 0.8;
   mix-blend-mode: hard-light; */
 }
+
 .overlay {
   /* background-image: linear-gradient(0deg, #24203b, rgba(36, 32, 59, 0)); */
   background-image: linear-gradient(358deg, #201d35, rgb(29 26 47 / 4%));
@@ -77,5 +78,20 @@
 @media (max-width: 768px) {
   .downGroup {
     display: none !important;
+  }
+}
+
+/* ############## Animartion ################## */
+
+#hero-image {
+  animation: fadein 2s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
