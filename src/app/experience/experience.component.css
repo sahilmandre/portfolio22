@@ -116,6 +116,9 @@
     width: 100%;
   }
 
+  .techPic {
+    justify-content: center;
+  }
   .techRightSection {
     width: 100%;
     display: grid;
@@ -126,13 +129,40 @@
     text-align: left;
     max-width: 65%;
     margin-top: -25%;
-    margin-left: 7%;
+    margin-left: 0%;
   }
 
   .mainHeadingDescription {
     text-align: left;
     max-width: 90%;
-    margin-left: 7%;
+    margin-left: 0%;
+  }
+}
+
+@media (max-width: 1080px) {
+  .techPic {
+    height: 50rem;
+    width: 88%;
+    object-fit: cover;
+    border-top-right-radius: 18rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 540px) {
+  .mainHeading {
+    overflow-wrap: break-word;
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .mainHeadingDescription {
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .techPic {
+    justify-content: center;
   }
 }
 

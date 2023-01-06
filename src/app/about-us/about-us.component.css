@@ -55,9 +55,9 @@
     display: grid;
     justify-content: center;
   }
-  .background {
+  /* .background {
     background-image: radial-gradient(#211d37, rgb(31 28 51));
-  }
+  } */
 }
 
 @media (max-width: 1080px) {
