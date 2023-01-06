@@ -20,13 +20,13 @@ export class ProjectsComponent {
   cardCollection_1 = [
     {
       title: 'Hulu Clone',
-      imgSrc: '../../assets/images/projectImages/hulu.png',
+      imgSrc: '../../assets/images/projectImages/hulu.webp',
       cardDesc: 'React + Tailwind Css',
       redirectTo: 'https://huluclone-gq08qulf2-sahilmandre.vercel.app/',
     },
     {
       title: 'Design SympoSium',
-      imgSrc: '../../assets/images/projectImages/designSymposium.jpg',
+      imgSrc: '../../assets/images/projectImages/designSymposium.webp',
       cardDesc: 'Wordpress + Custom SCSS',
       redirectTo: 'https://designsymposium.in/',
     },
@@ -35,13 +35,13 @@ export class ProjectsComponent {
   cardCollection_2 = [
     {
       title: 'Portfolio 2021',
-      imgSrc: '../../assets/images/projectImages/portfolio2021.jpg',
+      imgSrc: '../../assets/images/projectImages/portfolio2021.webp',
       cardDesc: 'React + Html + CSS',
       redirectTo: 'https://potfolio-sahil.web.app/',
     },
     {
       title: 'BootStrap Demo',
-      imgSrc: '../../assets/images/projectImages/bsdemo.jpg',
+      imgSrc: '../../assets/images/projectImages/bsdemo.webp',
       cardDesc: 'Html + CSS + Bootstrap',
       redirectTo: 'https://sahilmandre.github.io/bootstrapdemo/',
     },
