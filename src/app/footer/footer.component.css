@@ -40,3 +40,17 @@
   width: calc(100% - 100px);
   max-width: calc(100% - 100px);
 }
+
+@media (max-width: 430px) {
+  .resumeSection {
+    width: 100%;
+  }
+
+  .navigationSection {
+    width: 100%;
+  }
+
+  .socialSection {
+    width: 100%;
+  }
+}
