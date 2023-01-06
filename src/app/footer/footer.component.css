@@ -42,8 +42,17 @@
 }
 
 @media (max-width: 430px) {
+  .footerGroup {
+    text-align: center;
+    justify-content: center;
+  }
+
   .resumeSection {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
   }
 
   .navigationSection {
@@ -52,5 +61,10 @@
 
   .socialSection {
     width: 100%;
+  }
+
+  .copyrightSection {
+    justify-content: center !important;
+    text-align: center;
   }
 }
