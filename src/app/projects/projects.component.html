@@ -49,12 +49,17 @@
 <div class="contactsBackground">
   <div class="container-fluid p-5">
     <div class="contactHeading subHeading">Contact Me</div>
-    <form class="row g-3 formTextFields">
+    <form
+      class="row g-3 formTextFields"
+      action="https://formsubmit.co/27c75879a458682d45c20dfbd12f4c42"
+      method="POST"
+    >
       <div class="row p-0">
         <div class="col-12 pe-0 col-md-4 col-sm-6 mt-4">
           <label for="inputName" class="form-label">Full Name</label>
           <input
             type="text"
+            name="Full Name"
             class="formInputFields"
             id="inputName"
             placeholder="Your full name"
@@ -64,6 +69,7 @@
           <label for="inputEmail" class="form-label">Email</label>
           <input
             type="email"
+            name="Email"
             class="formInputFields"
             id="inputEmail"
             placeholder="Your email address"
@@ -73,6 +79,7 @@
           <label for="phoneNumber" class="form-label">Phone Number</label>
           <input
             type="tel"
+            name="Phone Number"
             class="formInputFields"
             id="phoneNumber"
             placeholder="Your phone number"
@@ -84,6 +91,7 @@
         <label for="inputMessage" class="form-label">Message</label>
 
         <textarea
+          name="Message"
           class="formInputFields"
           id="inputMessage"
           placeholder="Your message here"
