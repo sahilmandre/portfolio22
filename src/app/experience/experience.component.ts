@@ -13,8 +13,7 @@ export class ExperienceComponent {
   }[] = [
     {
       title: 'Tata Consultancy Services',
-      subtitle:
-        'Front-end developer at with expertise in UI, Angular, HTML, CSS, etc.I work on an international project called UCH-Product that is supported by Aviva and Diligenta, two of our UK based clients.',
+      subtitle: `I'm a React Developer and Front-end developer skilled in UI, HTML, CSS, and more. I worked on the UCH Studio project, supported by UK clients Aviva and Diligenta. Currently, I am working on Hobs Worklist for Malaysian Telecom.`,
       image: '../../assets/icons/star_FILL0_wght400_GRAD0_opsz48.png',
     },
     {
