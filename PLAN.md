@@ -129,7 +129,8 @@ A "Portfolio Evolution" section showing each past version by year (screenshot + 
 #### Phase 3 REBUILD — character-driven immersive journey (pivot, 2026-07-18)
 Original 3D was abstract floating objects — Sahil wants a **boy avatar living his life** (school → football/goalkeeper → college → coding), immersive & interactive. Character = **Ready Player Me** avatar of Sahil. Iterating in rounds via Sahil's local screenshots.
 - [x] **Round 1** — Character GLB loader (+ placeholder capsule), 3D Stage (ground, lights, shadows, orbit controls, loader), mounted at top of Journey section (timeline kept below as narrative/SEO). Old constellation backdrop removed.
-- [ ] **Round 1 handoff** — Sahil creates RPM avatar from selfie → pastes `.glb` URL in `avatarConfig.js` → `npm run dev` → screenshot to calibrate scale/camera
+- [x] **Custom boy character** — Sahil couldn't build the RPM avatar, so built a hand-coded low-poly boy from primitives (long dark hair, glasses, tan skin, navy plaid shirt), rigged as limb groups (hips/arms/legs/head) with idle + walk-ready animation. Now the default character (RPM still optional via `avatarConfig.js`). About photo = real selfie (me.webp).
+- [ ] **Round 1 handoff** — Sahil runs `npm run dev` → screenshot the boy to calibrate look/scale/camera
 - [ ] **Round 2** — life path + scene stations (school/football/college/desk) + scroll-driven character movement
 - [ ] **Round 3** — animations (walk, idle, goalkeeper, sitting-and-typing)
 - [ ] **Round 4** — immersion polish (lighting, camera choreography, transitions)
