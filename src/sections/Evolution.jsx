@@ -16,12 +16,7 @@ export default function Evolution() {
           const isLink = !v.current
           const Wrapper = isLink ? 'a' : 'div'
           const linkProps = isLink
-            ? {
-                href: v.href,
-                ...(v.external
-                  ? { target: '_blank', rel: 'noopener noreferrer' }
-                  : {}),
-              }
+            ? { href: v.href, target: '_blank', rel: 'noopener noreferrer' }
             : {}
           return (
             <Reveal

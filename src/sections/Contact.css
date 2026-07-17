@@ -84,7 +84,7 @@
 
 .field input::placeholder,
 .field textarea::placeholder {
-  color: #7d7799;
+  color: #a49dc4; /* contrast-safe (≥4.5:1 on the input bg) */
 }
 
 .field input:focus,

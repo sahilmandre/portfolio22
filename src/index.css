@@ -126,6 +126,23 @@ ul {
   margin-inline: auto;
 }
 
+/* Accessibility: skip link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: var(--z-toast);
+  background: var(--surface-2);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  transition: top 0.2s var(--ease-out);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
 /* Respect reduced motion everywhere */
 @media (prefers-reduced-motion: reduce) {
   html {

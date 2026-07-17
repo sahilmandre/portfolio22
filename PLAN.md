@@ -1,7 +1,7 @@
 # 🚀 Portfolio Rebuild Plan — Angular → React 3D Journey
 
 > **Living document.** The TODO checklist in each phase is updated after every completed task.
-> Last updated: **2026-07-17** · Status: **Phase 3 complete (committed & pushed) · starting Phase 4 (polish/QA)**
+> Last updated: **2026-07-17** · Status: **All 4 phases built, committed & pushed. PR open. Awaiting Sahil's visual review on the Vercel preview before merge to production.**
 
 ---
 
@@ -136,13 +136,15 @@ A "Portfolio Evolution" section showing each past version by year (screenshot + 
 - [ ] **Commit Phase 3** on `react-migration`
 
 ### Phase 4 — Polish, QA, ship
-- [ ] `impeccable` audit + polish pass (a11y, contrast, motion, responsive)
-- [ ] Cross-device/browser QA; Lighthouse (perf/SEO/a11y)
-- [ ] Verify SEO parity (title, meta, structured data, sitemap)
+- [x] a11y + polish pass — skip link, form placeholder contrast (≥4.5:1), reduced-motion, legacy links open in new tab
+- [x] Verify SEO parity (title, meta, OG/Twitter, JSON-LD Person, sitemap, robots) — confirmed in built `dist/index.html`
+- [x] Update README
+- [x] **Commit Phase 4** on `react-migration`
+- [x] Open PR `react-migration` → `main` for review
+- [ ] Cross-device/browser + 3D **visual QA on Vercel preview** (needs a real browser — for Sahil)
 - [ ] Final review with Sahil on preview URL
-- [ ] **Commit Phase 4** on `react-migration`
-- [ ] Merge `react-migration` → `main` → production deploy
-- [ ] Confirm live domain + update README
+- [ ] Merge `react-migration` → `main` → production deploy *(GATED: only after Sahil approves the preview)*
+- [ ] Confirm live domain
 
 ---
 
@@ -163,3 +165,4 @@ A "Portfolio Evolution" section showing each past version by year (screenshot + 
 - **2026-07-17** — **Phase 1 DONE & committed.** Angular removed & archived live at `/legacy/2022/` (noindex); Vite+React scaffold with purple theme, fonts, SEO meta+OG+JSON-LD, robots+sitemap, vercel.json. Build passes; preview verified (`/`, `/legacy/2022/`, `robots.txt` all 200). Header + Hero + Footer live. Pushed branch `react-migration` → Vercel preview.
 - **2026-07-17** — **Phase 2 DONE & committed.** All sections built (Journey timeline, About, Experience, Projects w/ featured Tradelogy, Portfolio Evolution, Beyond Code, Contact form via formsubmit AJAX → gmail). framer-motion reveals w/ reduced-motion; impeccable rules followed (no gradient text, varied layouts, contrast, fluid responsive). Build OK (417 modules, 97 KB gz JS); preview 200 + bundle contains all content. NOTE: full visual/DOM render not verified locally (no headless browser) — rely on Vercel preview for visual QA. Next: Phase 3 R3F 3D journey.
 - **2026-07-17** — **Phase 3 DONE & committed.** Added React Three Fiber 3D: low-poly models from primitives (building/football/grad-cap/laptop/gems), Hero canvas (floating models + sparkles + mouse parallax), Journey constellation backdrop. Lazy-mounted in-view + code-split (three chunk 222 KB gz loads on demand), dpr-capped, reduced-motion skips it, ErrorBoundary falls back to CSS orbs. Build OK (1011 modules); all assets serve 200. NOTE: 3D visuals not verifiable locally (no WebGL/headless) — needs visual QA on Vercel preview; models are primitive low-poly (upgradeable to GLTF via /impeccable live). Next: Phase 4 polish/QA.
+- **2026-07-17** — **Phase 4 DONE & committed.** Polish: a11y skip link, form-placeholder contrast fix, legacy links open in new tab. Verified SEO parity in built `dist/index.html` (title/desc/canonical/OG/Twitter/JSON-LD). Wrote README. Opened PR `react-migration` → `main`. **NOT merged** — production merge is gated on Sahil's visual review of the Vercel preview (per safe-rollout plan). Remaining: visual/3D QA on preview, then merge.
