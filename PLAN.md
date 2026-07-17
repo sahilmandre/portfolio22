@@ -130,10 +130,11 @@ A "Portfolio Evolution" section showing each past version by year (screenshot + 
 Original 3D was abstract floating objects — Sahil wants a **boy avatar living his life** (school → football/goalkeeper → college → coding), immersive & interactive. Character = **Ready Player Me** avatar of Sahil. Iterating in rounds via Sahil's local screenshots.
 - [x] **Round 1** — Character GLB loader (+ placeholder capsule), 3D Stage (ground, lights, shadows, orbit controls, loader), mounted at top of Journey section (timeline kept below as narrative/SEO). Old constellation backdrop removed.
 - [x] **Custom boy character** — Sahil couldn't build the RPM avatar, so built a hand-coded low-poly boy from primitives (long dark hair, glasses, tan skin, navy plaid shirt), rigged as limb groups (hips/arms/legs/head) with idle + walk-ready animation. Now the default character (RPM still optional via `avatarConfig.js`). About photo = real selfie (me.webp).
-- [ ] **Round 1 handoff** — Sahil runs `npm run dev` → screenshot the boy to calibrate look/scale/camera
-- [ ] **Round 2** — life path + scene stations (school/football/college/desk) + scroll-driven character movement
-- [ ] **Round 3** — animations (walk, idle, goalkeeper, sitting-and-typing)
-- [ ] **Round 4** — immersion polish (lighting, camera choreography, transitions)
+- [x] **Round 1 handoff** — screenshot received: boy renders (hair had a top gap; scene too dark). Fixed hair (fuller) + brightened lighting.
+- [x] **Round 2** — life path (journeyPath.js: 5 stations + keyframe sampler), station environments (school, football goal+ball, college+cap, coding desk+laptop, office) with floating labels, scroll-driven walk + camera follow (Stage Rig), tall sticky scroll region + reduced-motion fallback.
+- [x] **Round 3 (code)** — pose system on the rigged boy: idle / walk / goalkeeper / graduate / coding / working, damped transitions via shared poseRef.
+- [ ] **Calibrate (needs screenshots)** — pose/prop/camera positions are first-guess; tune from Sahil's scroll screenshots (e.g. desk/laptop height vs typing hands, goal scale, camera framing per station).
+- [ ] **Round 4** — immersion polish (lighting mood, camera choreography, transitions, textures/ground detail)
 
 #### Phase 3 — remaining/optional (needs visual iteration)
 - [ ] R3F canvas + scene setup + lighting + purple environment

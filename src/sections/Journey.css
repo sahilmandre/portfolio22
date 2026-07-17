@@ -23,23 +23,25 @@
   z-index: 1;
 }
 
-/* Interactive 3D life stage */
-.life-stage {
+/* Interactive 3D life stage — sticky canvas scrubbed by a tall scroll region */
+.life-scroll {
   position: relative;
-  width: 100%;
-  height: min(72vh, 580px);
-  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
-  border-radius: var(--radius-lg);
+  height: 460vh; /* scroll length = walk length; tune for pacing */
+}
+
+.life-stage-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
   overflow: hidden;
-  border: 1px solid var(--line-strong);
   background: radial-gradient(120% 100% at 50% 0%, #241f3d, #14121f);
 }
 
-.life-stage canvas {
+.life-stage-sticky canvas {
   display: block;
   width: 100% !important;
   height: 100% !important;
-  touch-action: none;
+  touch-action: pan-y; /* keep vertical scrolling on touch devices */
 }
 
 .life-stage__hint {
