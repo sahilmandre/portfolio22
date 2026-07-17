@@ -1,37 +1,47 @@
 .site-footer {
   background: var(--bg-panel);
   border-top: 1px solid var(--line);
-  padding-block: var(--space-section) 2.5rem;
+  padding-block: clamp(3rem, 2rem + 4vw, 5rem) 2rem;
 }
 
-.footer__cta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.1rem;
-  padding-bottom: 4rem;
+.footer__top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
 }
 
-.footer__kicker {
-  color: var(--violet);
+.footer__brand .wordmark {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.footer__tagline {
+  color: var(--muted);
+  max-width: 34ch;
+  margin-bottom: 1.5rem;
+}
+
+.footer__col-title {
+  display: block;
+  font-size: 0.8rem;
   font-weight: 600;
-  font-size: var(--step-lead);
+  letter-spacing: 0.04em;
+  color: var(--violet);
+  margin-bottom: 1.1rem;
 }
 
-.footer__title {
-  font-size: var(--step-h2);
-  max-width: 18ch;
+.footer__nav ul {
+  display: grid;
+  gap: 0.7rem;
 }
 
-.footer__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
+.footer__nav a {
+  color: var(--ink-soft);
+  transition: color 0.25s var(--ease-out);
 }
-
-.footer__socials {
-  margin-top: 1.5rem;
+.footer__nav a:hover {
+  color: var(--magenta);
 }
 
 .footer__bottom {
@@ -42,5 +52,12 @@
   padding-top: 2rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+}
+
+@media (min-width: 760px) {
+  .footer__top {
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 3rem;
+  }
 }

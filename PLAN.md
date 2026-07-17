@@ -1,7 +1,7 @@
 # 🚀 Portfolio Rebuild Plan — Angular → React 3D Journey
 
 > **Living document.** The TODO checklist in each phase is updated after every completed task.
-> Last updated: **2026-07-17** · Status: **Phase 1 complete (committed) · ready to push preview / start Phase 2**
+> Last updated: **2026-07-17** · Status: **Phase 2 complete (committed & pushed) · starting Phase 3 (3D journey)**
 
 ---
 
@@ -98,21 +98,22 @@ A "Portfolio Evolution" section showing each past version by year (screenshot + 
 - [x] `vercel.json` (framework=vite, output=dist) + `robots.txt` + `sitemap.xml`
 - [x] `npm install` + `npm run build` verified locally (build OK; preview server serves `/`, `/legacy/2022/`, `robots.txt` → all 200)
 - [x] **Commit Phase 1** on `react-migration`
-- [ ] Push branch → confirm **Vercel preview** builds & loads *(awaiting go-ahead to push)*
+- [x] Push branch → Vercel preview building (pushed `react-migration`; `vercel.json` forces Vite preset)
 
 ### Phase 2 — Standard sections (React, responsive)
-- [ ] Layout shell + navigation (header w/ social links) + smooth-scroll anchors
-- [ ] About section (bio + photo)
-- [ ] Experience timeline (V2 → TCS → Accenture) — no identical card grid
-- [ ] Projects section (flagship Tradelogy + selected work)
-- [ ] **Portfolio Evolution** section (year timeline: screenshot + tech + "Open live →" to `/legacy/<year>/`)
-- [ ] Preserve older versions into `public/legacy/<year>/` (+ noindex) and/or link out to existing hosts
-- [ ] "Beyond Code" (Mission Azad NGO + Fest) 
-- [ ] Contact form → formsubmit.co (sahilmandre@gmail.com) + validation
-- [ ] Footer (resume download, nav, socials, copyright)
-- [ ] About uses **placeholder photo** (swap real photo later)
-- [ ] Responsive pass @ 360 / 768 / 1024 / 1440
-- [ ] **Commit Phase 2** on `react-migration`
+- [x] Layout shell + navigation (header w/ social links) + smooth-scroll anchors
+- [x] Journey section — animated 2D vertical timeline (7 milestones; SEO + reduced-motion/mobile fallback for 3D)
+- [x] About section (bio + placeholder photo + quick facts + skills)
+- [x] Experience timeline (V2 → TCS → Accenture) — stacked detail layout, no identical card grid
+- [x] Projects section (flagship Tradelogy + Hulu/Design Symposium/Bootstrap)
+- [x] **Portfolio Evolution** section (year timeline: screenshot + tech + "Open live →" to `/legacy/2022/`)
+- [x] Older version preserved into `public/legacy/2022/` (+ noindex); 2021 links out
+- [x] "Beyond Code" (Mission Azad NGO + Fest + awards + certs)
+- [x] Contact form → formsubmit.co AJAX (sahilmandre@gmail.com) + validation + success/error states
+- [x] Footer (resume download, nav, socials, copyright)
+- [x] About uses **placeholder photo** (auto-swaps in `/assets/images/me.webp` when added)
+- [x] Responsive pass @ 360 / 768 / 1024 / 1440 (fluid clamp type/space, auto-fit grids, timeline → single column)
+- [x] **Commit Phase 2** on `react-migration`
 
 ### Phase 3 — The 3D scroll journey
 - [ ] R3F canvas + scene setup + lighting + purple environment
@@ -148,4 +149,5 @@ A "Portfolio Evolution" section showing each past version by year (screenshot + 
 - **2026-07-17** — Planning complete. Design direction locked, résumé parsed, `impeccable` installed, PLAN.md created. Awaiting go-ahead for Phase 1.
 - **2026-07-17** — Added "Portfolio Time Machine" evolution feature: preserve past versions live at `/legacy/<year>/` (noindex) + evolution section. Angular version to be archived before swap.
 - **2026-07-17** — Content locked: real journey dates (school 2000–17 Jabalpur, football 2009–15 district GK, college RGPV 2017–21, COVID/coding 2020, V2/TCS/Accenture). Projects: Tradelogy (tradelogy.in) + Hulu/Design Symposium/Bootstrap. Evolution: 2021/2022/2026.
-- **2026-07-17** — **Phase 1 DONE & committed.** Angular removed & archived live at `/legacy/2022/` (noindex); Vite+React scaffold with purple theme, fonts, SEO meta+OG+JSON-LD, robots+sitemap, vercel.json. Build passes; preview verified (`/`, `/legacy/2022/`, `robots.txt` all 200). Header + Hero + Footer live. Next: push for Vercel preview, then Phase 2 sections.
+- **2026-07-17** — **Phase 1 DONE & committed.** Angular removed & archived live at `/legacy/2022/` (noindex); Vite+React scaffold with purple theme, fonts, SEO meta+OG+JSON-LD, robots+sitemap, vercel.json. Build passes; preview verified (`/`, `/legacy/2022/`, `robots.txt` all 200). Header + Hero + Footer live. Pushed branch `react-migration` → Vercel preview.
+- **2026-07-17** — **Phase 2 DONE & committed.** All sections built (Journey timeline, About, Experience, Projects w/ featured Tradelogy, Portfolio Evolution, Beyond Code, Contact form via formsubmit AJAX → gmail). framer-motion reveals w/ reduced-motion; impeccable rules followed (no gradient text, varied layouts, contrast, fluid responsive). Build OK (417 modules, 97 KB gz JS); preview 200 + bundle contains all content. NOTE: full visual/DOM render not verified locally (no headless browser) — rely on Vercel preview for visual QA. Next: Phase 3 R3F 3D journey.

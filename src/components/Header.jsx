@@ -23,6 +23,7 @@ export default function Header() {
 
         <nav className="site-nav" aria-label="Primary">
           <a href="#journey">Journey</a>
+          <a href="#about">About</a>
           <a href="#work">Work</a>
           <a href="#contact">Contact</a>
         </nav>

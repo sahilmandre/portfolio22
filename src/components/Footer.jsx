@@ -1,32 +1,57 @@
+import { FiDownload } from 'react-icons/fi'
 import { SITE } from '../data/site'
 import SocialLinks from './SocialLinks'
-import { FiArrowUpRight, FiDownload } from 'react-icons/fi'
 import './Footer.css'
+
+const NAV = [
+  { label: 'Journey', href: '#journey' },
+  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Work', href: '#work' },
+  { label: 'Evolution', href: '#evolution' },
+  { label: 'Contact', href: '#contact' },
+]
 
 export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="site-footer" id="contact">
-      <div className="container">
-        <div className="footer__cta">
-          <p className="footer__kicker">Get in touch</p>
-          <h2 className="footer__title">Let's build something worth remembering.</h2>
-          <div className="footer__actions">
-            <a href={`mailto:${SITE.email}`} className="btn btn--primary">
-              {SITE.email} <FiArrowUpRight aria-hidden="true" />
-            </a>
-            <a href={SITE.resume} className="btn btn--ghost" download>
-              Download résumé <FiDownload aria-hidden="true" />
-            </a>
-          </div>
-          <SocialLinks className="footer__socials" />
+    <footer className="site-footer">
+      <div className="container footer__top">
+        <div className="footer__brand">
+          <a href="#top" className="wordmark">
+            <span className="wordmark__first">Sahil</span>
+            <span className="wordmark__last">Mandre</span>
+          </a>
+          <p className="footer__tagline">
+            Front-end developer crafting fast, interactive web experiences from
+            {' '}{SITE.location}.
+          </p>
+          <a href={SITE.resume} className="btn btn--ghost btn--sm" download>
+            <FiDownload aria-hidden="true" /> Download résumé
+          </a>
         </div>
 
-        <div className="footer__bottom">
-          <span>Created with care by {SITE.name} · {SITE.location}</span>
-          <span>© {year} Sahil Mandre · Portfolio v3</span>
+        <nav className="footer__nav" aria-label="Footer">
+          <span className="footer__col-title">Explore</span>
+          <ul>
+            {NAV.map((n) => (
+              <li key={n.href}>
+                <a href={n.href}>{n.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="footer__social">
+          <span className="footer__col-title">Elsewhere</span>
+          <SocialLinks />
         </div>
+      </div>
+
+      <div className="container footer__bottom">
+        <span>© {year} Sahil Mandre</span>
+        <span>Built with React, Three.js &amp; GSAP · Portfolio v3</span>
       </div>
     </footer>
   )
