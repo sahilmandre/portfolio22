@@ -1,5 +1,6 @@
 import { SITE } from '../data/site'
 import SocialLinks from '../components/SocialLinks'
+import Lazy3D from '../three/Lazy3D'
 import './Hero.css'
 
 export default function Hero() {
@@ -10,6 +11,8 @@ export default function Hero() {
         <span className="orb orb--2" />
         <span className="orb orb--3" />
       </div>
+
+      <Lazy3D className="hero__canvas" load={() => import('../three/HeroCanvas')} />
 
       <div className="container hero__inner">
         <p className="hero__intro">Hi, I'm</p>

@@ -1,7 +1,26 @@
 .journey {
+  position: relative;
+  overflow: hidden;
   background:
     radial-gradient(120% 60% at 50% 0%, rgba(122, 99, 210, 0.1), transparent 60%),
     var(--bg);
+}
+
+/* Subtle 3D constellation backdrop; the readable content sits above it */
+.journey__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.journey__canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.journey .container {
+  position: relative;
+  z-index: 1;
 }
 
 .timeline {

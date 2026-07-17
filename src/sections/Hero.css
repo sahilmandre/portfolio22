@@ -58,9 +58,26 @@
   50% { transform: translate3d(-5%, -4%, 0) scale(1.12); }
 }
 
+/* 3D canvas layer — sits above the CSS orbs (its fallback), below the text */
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero__canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .hero__inner {
   position: relative;
   z-index: 1;
+  /* let the canvas receive pointer moves for parallax; re-enable on controls */
+  pointer-events: none;
+}
+.hero__inner a,
+.hero__inner button {
+  pointer-events: auto;
 }
 
 .hero__intro {

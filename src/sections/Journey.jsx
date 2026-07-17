@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fa'
 import { JOURNEY } from '../data/site'
 import Reveal from '../components/Reveal'
+import Lazy3D from '../three/Lazy3D'
 import './Journey.css'
 
 const ICONS = {
@@ -24,6 +25,7 @@ const ICONS = {
 export default function Journey() {
   return (
     <section id="journey" className="section journey">
+      <Lazy3D className="journey__canvas" load={() => import('../three/JourneyCanvas')} />
       <div className="container">
         <header className="section__head">
           <Reveal as="h2" className="section__title">
