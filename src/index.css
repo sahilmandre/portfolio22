@@ -1,0 +1,142 @@
+/* ============================================================
+   Sahil Mandre — Portfolio v3 · Design tokens & base styles
+   Brand register: committed purple. (impeccable-guided)
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+
+  /* --- Brand palette (committed purple) --- */
+  --bg: #14121f;            /* deep base */
+  --bg-panel: #1b1924;      /* panel / section */
+  --surface: #241f3d;       /* raised surface */
+  --surface-2: #2b2354;     /* raised surface, brighter */
+  --ink: #ffffff;           /* headings */
+  --ink-soft: #e9e5f6;      /* strong body */
+  --muted: #ada6ce;         /* muted body — contrast-checked ≥4.5:1 on --bg */
+  --violet: #7a63d2;        /* accent 1 */
+  --magenta: #b266d2;       /* accent 2 */
+  --accent: #8b74e0;
+  --accent-grad: linear-gradient(96deg, #7a63d2, #b266d2);
+  --line: rgba(178, 102, 210, 0.16);
+  --line-strong: rgba(178, 102, 210, 0.34);
+
+  /* --- Typography --- */
+  --font-display: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
+  --font-body: "Manrope", system-ui, -apple-system, sans-serif;
+
+  /* Fluid type scale (ratio ≥1.25, hero cap ≤6rem per impeccable) */
+  --step-hero: clamp(2.75rem, 1.5rem + 6.2vw, 5.75rem);
+  --step-h2: clamp(2rem, 1.3rem + 3.2vw, 3.25rem);
+  --step-h3: clamp(1.4rem, 1.1rem + 1.4vw, 1.9rem);
+  --step-lead: clamp(1.05rem, 0.95rem + 0.6vw, 1.35rem);
+  --step-body: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+
+  /* --- Spacing / layout --- */
+  --space-section: clamp(4.5rem, 3rem + 7vw, 9rem);
+  --radius: 16px;
+  --radius-lg: 26px;
+
+  /* --- Z-index scale (semantic, no magic 9999) --- */
+  --z-base: 1;
+  --z-canvas: 5;
+  --z-overlay: 10;
+  --z-header: 100;
+  --z-modal: 1000;
+  --z-toast: 1100;
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  background: var(--bg);
+  color: var(--muted);
+  line-height: 1.65;
+  min-height: 100svh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  font-weight: 700;
+}
+
+p {
+  text-wrap: pretty;
+  max-width: 68ch;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--magenta);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: rgba(178, 102, 210, 0.35);
+  color: #fff;
+}
+
+/* Layout helper */
+.container {
+  width: min(100% - 2.5rem, 1200px);
+  margin-inline: auto;
+}
+
+/* Respect reduced motion everywhere */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
