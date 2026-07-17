@@ -1,7 +1,7 @@
 # 🚀 Portfolio Rebuild Plan — Angular → React 3D Journey
 
 > **Living document.** The TODO checklist in each phase is updated after every completed task.
-> Last updated: **2026-07-17** · Status: **All 4 phases built, committed & pushed. PR open. Awaiting Sahil's visual review on the Vercel preview before merge to production.**
+> Last updated: **2026-07-18** · Status: **PIVOT — rebuilding the 3D journey as a character-driven, immersive life story (Ready Player Me avatar of Sahil). Iterating in rounds via Sahil's local screenshots. Round 1 (avatar + scene foundation) built & committed.**
 
 ---
 
@@ -125,6 +125,14 @@ A "Portfolio Evolution" section showing each past version by year (screenshot + 
 - [x] Reduced-motion skips canvas; WebGL failure falls back to CSS orbs (ErrorBoundary)
 - [x] Build verified (1011 modules; 3D code-split to lazy chunks); all assets serve 200
 - [x] **Commit Phase 3** on `react-migration`
+
+#### Phase 3 REBUILD — character-driven immersive journey (pivot, 2026-07-18)
+Original 3D was abstract floating objects — Sahil wants a **boy avatar living his life** (school → football/goalkeeper → college → coding), immersive & interactive. Character = **Ready Player Me** avatar of Sahil. Iterating in rounds via Sahil's local screenshots.
+- [x] **Round 1** — Character GLB loader (+ placeholder capsule), 3D Stage (ground, lights, shadows, orbit controls, loader), mounted at top of Journey section (timeline kept below as narrative/SEO). Old constellation backdrop removed.
+- [ ] **Round 1 handoff** — Sahil creates RPM avatar from selfie → pastes `.glb` URL in `avatarConfig.js` → `npm run dev` → screenshot to calibrate scale/camera
+- [ ] **Round 2** — life path + scene stations (school/football/college/desk) + scroll-driven character movement
+- [ ] **Round 3** — animations (walk, idle, goalkeeper, sitting-and-typing)
+- [ ] **Round 4** — immersion polish (lighting, camera choreography, transitions)
 
 #### Phase 3 — remaining/optional (needs visual iteration)
 - [ ] R3F canvas + scene setup + lighting + purple environment

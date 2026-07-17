@@ -23,6 +23,47 @@
   z-index: 1;
 }
 
+/* Interactive 3D life stage */
+.life-stage {
+  position: relative;
+  width: 100%;
+  height: min(72vh, 580px);
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background: radial-gradient(120% 100% at 50% 0%, #241f3d, #14121f);
+}
+
+.life-stage canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+}
+
+.life-stage__hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.75rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.life-stage__loading,
+.life-stage__fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 2rem;
+  color: var(--muted);
+}
+
 .timeline {
   position: relative;
   margin: 0;
