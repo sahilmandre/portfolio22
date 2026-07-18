@@ -152,7 +152,7 @@ export const PROJECTS = [
     tech: ['React', 'Node.js', 'Express', 'MongoDB', 'TanStack Query'],
     live: 'https://tradelogy.in/',
     code: 'https://github.com/sahilmandre',
-    image: 'https://image.thum.io/get/width/1200/crop/900/noanimate/https://tradelogy.in/',
+    image: '/assets/images/projectImages/tradelogy.webp',
     featured: true,
   },
   {
