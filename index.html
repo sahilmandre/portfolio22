@@ -15,6 +15,12 @@
     <meta name="theme-color" content="#14121f" />
     <link rel="canonical" href="https://portfolio-sahilmandre.vercel.app/" />
 
+    <!-- Critical: dark background before the app CSS loads (avoids a white flash
+         behind the terminal boot loader) -->
+    <style>
+      html { background: #14121f; }
+    </style>
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Sahil Mandre" />
