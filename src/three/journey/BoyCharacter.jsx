@@ -1,10 +1,12 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
+import Backpack from './Backpack'
 
-// Stylized low-poly boy, built from primitives, assembled as a rigged hierarchy
-// (hips -> torso/head/arms/legs) so limbs can swing for walk + action poses.
-// Pose is read from a shared ref (poseRef.current.pose) so the scroll rig can
-// drive it without React re-renders.
+// Stylized low-poly boy from primitives, rigged as a hierarchy:
+//   root -> hips -> (upper: torso/head/arms + backpack) + legs
+// The `upper` group lets him bend at the waist (pickup). Pose is read from a
+// shared ref (poseRef.current.pose / .backpack) so the scroll rig drives it
+// without React re-renders.
 
 const SKIN = '#c08c63'
 const SKIN_DARK = '#a9744f'
@@ -21,11 +23,13 @@ const damp = (rot, axis, target, k) => {
 
 export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
   const root = useRef()
+  const upper = useRef()
   const lArm = useRef()
   const rArm = useRef()
   const lLeg = useRef()
   const rLeg = useRef()
   const head = useRef()
+  const bp = useRef()
 
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime
@@ -33,6 +37,7 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
     const k = Math.min(1, delta * 10)
 
     let rootY = 0
+    let upperX = 0
     let lArmX = 0
     let rArmX = 0
     let lArmZ = 0
@@ -42,6 +47,14 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
     let headY = head.current ? head.current.rotation.y : 0
 
     switch (pose) {
+      case 'pickup': {
+        upperX = 1.0 // bend forward at the waist
+        lArmX = -1.35
+        rArmX = -1.35
+        rootY = -0.08
+        headY = 0
+        break
+      }
       case 'walk': {
         const s = Math.sin(t * speed)
         lLegX = s * 0.7
@@ -79,7 +92,6 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
         break
       }
       default: {
-        // idle
         rootY = Math.sin(t * 1.6) * 0.015
         lArmX = Math.sin(t * 1.6) * 0.06
         rArmX = Math.sin(t * 1.6 + 0.4) * 0.06
@@ -88,6 +100,7 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
     }
 
     if (root.current) root.current.position.y += (rootY - root.current.position.y) * k
+    if (upper.current) damp(upper.current.rotation, 'x', upperX, k)
     if (lArm.current) {
       damp(lArm.current.rotation, 'x', lArmX, k)
       damp(lArm.current.rotation, 'z', lArmZ, k)
@@ -99,116 +112,118 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
     if (lLeg.current) damp(lLeg.current.rotation, 'x', lLegX, k)
     if (rLeg.current) damp(rLeg.current.rotation, 'x', rLegX, k)
     if (head.current) damp(head.current.rotation, 'y', headY, k)
+    if (bp.current) bp.current.visible = !!poseRef?.current?.backpack
   })
 
   return (
     <group ref={root} {...props}>
       <group position={[0, 0.9, 0]}>
-        {/* ---- Torso ---- */}
-        <mesh position={[0, 0.26, 0]} castShadow>
-          <boxGeometry args={[0.5, 0.62, 0.28]} />
-          <meshStandardMaterial color={SHIRT} flatShading roughness={0.8} />
-        </mesh>
-        <mesh position={[0, 0.26, 0.145]}>
-          <boxGeometry args={[0.08, 0.62, 0.01]} />
-          <meshStandardMaterial color={SHIRT_DARK} flatShading />
-        </mesh>
-        <mesh position={[0, 0.34, 0.145]}>
-          <boxGeometry args={[0.5, 0.06, 0.01]} />
-          <meshStandardMaterial color={SHIRT_DARK} flatShading />
-        </mesh>
-        <mesh position={[0, 0.56, 0.02]} rotation={[0.2, 0, 0]}>
-          <boxGeometry args={[0.34, 0.12, 0.28]} />
-          <meshStandardMaterial color={SHIRT_DARK} flatShading />
-        </mesh>
-
-        {/* ---- Neck ---- */}
-        <mesh position={[0, 0.64, 0]}>
-          <cylinderGeometry args={[0.08, 0.09, 0.12, 10]} />
-          <meshStandardMaterial color={SKIN_DARK} flatShading />
-        </mesh>
-
-        {/* ---- Head ---- */}
-        <group ref={head} position={[0, 0.86, 0]}>
-          <mesh castShadow>
-            <sphereGeometry args={[0.17, 22, 22]} />
-            <meshStandardMaterial color={SKIN} flatShading roughness={0.85} />
-          </mesh>
-          {/* nose */}
-          <mesh position={[0, -0.01, 0.17]} rotation={[Math.PI / 2, 0, 0]}>
-            <coneGeometry args={[0.03, 0.08, 8]} />
-            <meshStandardMaterial color={SKIN} flatShading />
-          </mesh>
-
-          {/* ---- Fuller wavy hair (no top gap) ---- */}
-          {/* scalp cap covering top + back */}
-          <mesh position={[0, 0.04, -0.03]} castShadow>
-            <sphereGeometry args={[0.195, 20, 20]} />
-            <meshStandardMaterial color={HAIR} flatShading roughness={1} />
-          </mesh>
-          {/* crown volume */}
-          <mesh position={[0, 0.13, -0.05]} castShadow>
-            <sphereGeometry args={[0.16, 16, 16]} />
-            <meshStandardMaterial color={HAIR} flatShading roughness={1} />
-          </mesh>
-          {/* long back to shoulders */}
-          <mesh position={[0, -0.2, -0.12]} castShadow>
-            <boxGeometry args={[0.38, 0.56, 0.15]} />
-            <meshStandardMaterial color={HAIR} flatShading roughness={1} />
-          </mesh>
-          {/* side strands framing the face */}
-          <mesh position={[-0.15, -0.1, 0.03]} rotation={[0, 0, 0.12]} castShadow>
-            <boxGeometry args={[0.12, 0.46, 0.24]} />
-            <meshStandardMaterial color={HAIR} flatShading roughness={1} />
-          </mesh>
-          <mesh position={[0.15, -0.1, 0.03]} rotation={[0, 0, -0.12]} castShadow>
-            <boxGeometry args={[0.12, 0.46, 0.24]} />
-            <meshStandardMaterial color={HAIR} flatShading roughness={1} />
-          </mesh>
-          {/* fringe over forehead */}
-          <mesh position={[0, 0.12, 0.12]} rotation={[0.45, 0, 0]}>
-            <boxGeometry args={[0.3, 0.13, 0.12]} />
-            <meshStandardMaterial color={HAIR} flatShading roughness={1} />
-          </mesh>
-
-          {/* ---- Glasses ---- */}
-          <mesh position={[-0.07, 0, 0.15]}>
-            <torusGeometry args={[0.055, 0.012, 8, 20]} />
-            <meshStandardMaterial color={FRAME} metalness={0.4} roughness={0.4} />
-          </mesh>
-          <mesh position={[0.07, 0, 0.15]}>
-            <torusGeometry args={[0.055, 0.012, 8, 20]} />
-            <meshStandardMaterial color={FRAME} metalness={0.4} roughness={0.4} />
-          </mesh>
-          <mesh position={[0, 0, 0.15]}>
-            <boxGeometry args={[0.04, 0.012, 0.012]} />
-            <meshStandardMaterial color={FRAME} metalness={0.4} roughness={0.4} />
-          </mesh>
-        </group>
-
-        {/* ---- Arms ---- */}
-        <group ref={lArm} position={[-0.31, 0.5, 0]}>
-          <mesh position={[0, -0.24, 0]} castShadow>
-            <capsuleGeometry args={[0.07, 0.4, 4, 10]} />
+        {/* ---- Upper body (bends for pickup) ---- */}
+        <group ref={upper}>
+          <mesh position={[0, 0.26, 0]} castShadow>
+            <boxGeometry args={[0.5, 0.62, 0.28]} />
             <meshStandardMaterial color={SHIRT} flatShading roughness={0.8} />
           </mesh>
-          <mesh position={[0, -0.5, 0]} castShadow>
-            <sphereGeometry args={[0.07, 12, 12]} />
-            <meshStandardMaterial color={SKIN} flatShading />
+          <mesh position={[0, 0.26, 0.145]}>
+            <boxGeometry args={[0.08, 0.62, 0.01]} />
+            <meshStandardMaterial color={SHIRT_DARK} flatShading />
           </mesh>
-        </group>
-        <group ref={rArm} position={[0.31, 0.5, 0]}>
-          <mesh position={[0, -0.24, 0]} castShadow>
-            <capsuleGeometry args={[0.07, 0.4, 4, 10]} />
-            <meshStandardMaterial color={SHIRT} flatShading roughness={0.8} />
+          <mesh position={[0, 0.34, 0.145]}>
+            <boxGeometry args={[0.5, 0.06, 0.01]} />
+            <meshStandardMaterial color={SHIRT_DARK} flatShading />
           </mesh>
-          <mesh position={[0, -0.5, 0]} castShadow>
-            <sphereGeometry args={[0.07, 12, 12]} />
-            <meshStandardMaterial color={SKIN} flatShading />
+          <mesh position={[0, 0.56, 0.02]} rotation={[0.2, 0, 0]}>
+            <boxGeometry args={[0.34, 0.12, 0.28]} />
+            <meshStandardMaterial color={SHIRT_DARK} flatShading />
           </mesh>
+
+          {/* Backpack (worn on the back) */}
+          <group ref={bp} position={[0, 0.28, -0.22]} visible={false}>
+            <Backpack />
+          </group>
+
+          {/* Neck */}
+          <mesh position={[0, 0.64, 0]}>
+            <cylinderGeometry args={[0.08, 0.09, 0.12, 10]} />
+            <meshStandardMaterial color={SKIN_DARK} flatShading />
+          </mesh>
+
+          {/* Head */}
+          <group ref={head} position={[0, 0.86, 0]}>
+            <mesh castShadow>
+              <sphereGeometry args={[0.17, 22, 22]} />
+              <meshStandardMaterial color={SKIN} flatShading roughness={0.85} />
+            </mesh>
+            <mesh position={[0, -0.01, 0.17]} rotation={[Math.PI / 2, 0, 0]}>
+              <coneGeometry args={[0.03, 0.08, 8]} />
+              <meshStandardMaterial color={SKIN} flatShading />
+            </mesh>
+
+            {/* Fuller wavy hair */}
+            <mesh position={[0, 0.04, -0.03]} castShadow>
+              <sphereGeometry args={[0.195, 20, 20]} />
+              <meshStandardMaterial color={HAIR} flatShading roughness={1} />
+            </mesh>
+            <mesh position={[0, 0.13, -0.05]} castShadow>
+              <sphereGeometry args={[0.16, 16, 16]} />
+              <meshStandardMaterial color={HAIR} flatShading roughness={1} />
+            </mesh>
+            <mesh position={[0, -0.2, -0.12]} castShadow>
+              <boxGeometry args={[0.38, 0.56, 0.15]} />
+              <meshStandardMaterial color={HAIR} flatShading roughness={1} />
+            </mesh>
+            <mesh position={[-0.15, -0.1, 0.03]} rotation={[0, 0, 0.12]} castShadow>
+              <boxGeometry args={[0.12, 0.46, 0.24]} />
+              <meshStandardMaterial color={HAIR} flatShading roughness={1} />
+            </mesh>
+            <mesh position={[0.15, -0.1, 0.03]} rotation={[0, 0, -0.12]} castShadow>
+              <boxGeometry args={[0.12, 0.46, 0.24]} />
+              <meshStandardMaterial color={HAIR} flatShading roughness={1} />
+            </mesh>
+            <mesh position={[0, 0.12, 0.12]} rotation={[0.45, 0, 0]}>
+              <boxGeometry args={[0.3, 0.13, 0.12]} />
+              <meshStandardMaterial color={HAIR} flatShading roughness={1} />
+            </mesh>
+
+            {/* Glasses */}
+            <mesh position={[-0.07, 0, 0.15]}>
+              <torusGeometry args={[0.055, 0.012, 8, 20]} />
+              <meshStandardMaterial color={FRAME} metalness={0.4} roughness={0.4} />
+            </mesh>
+            <mesh position={[0.07, 0, 0.15]}>
+              <torusGeometry args={[0.055, 0.012, 8, 20]} />
+              <meshStandardMaterial color={FRAME} metalness={0.4} roughness={0.4} />
+            </mesh>
+            <mesh position={[0, 0, 0.15]}>
+              <boxGeometry args={[0.04, 0.012, 0.012]} />
+              <meshStandardMaterial color={FRAME} metalness={0.4} roughness={0.4} />
+            </mesh>
+          </group>
+
+          {/* Arms */}
+          <group ref={lArm} position={[-0.31, 0.5, 0]}>
+            <mesh position={[0, -0.24, 0]} castShadow>
+              <capsuleGeometry args={[0.07, 0.4, 4, 10]} />
+              <meshStandardMaterial color={SHIRT} flatShading roughness={0.8} />
+            </mesh>
+            <mesh position={[0, -0.5, 0]} castShadow>
+              <sphereGeometry args={[0.07, 12, 12]} />
+              <meshStandardMaterial color={SKIN} flatShading />
+            </mesh>
+          </group>
+          <group ref={rArm} position={[0.31, 0.5, 0]}>
+            <mesh position={[0, -0.24, 0]} castShadow>
+              <capsuleGeometry args={[0.07, 0.4, 4, 10]} />
+              <meshStandardMaterial color={SHIRT} flatShading roughness={0.8} />
+            </mesh>
+            <mesh position={[0, -0.5, 0]} castShadow>
+              <sphereGeometry args={[0.07, 12, 12]} />
+              <meshStandardMaterial color={SKIN} flatShading />
+            </mesh>
+          </group>
         </group>
 
-        {/* ---- Legs ---- */}
+        {/* ---- Legs (not part of upper, so they stay planted when bending) ---- */}
         <group ref={lLeg} position={[-0.13, 0, 0]}>
           <mesh position={[0, -0.45, 0]} castShadow>
             <capsuleGeometry args={[0.09, 0.66, 4, 10]} />

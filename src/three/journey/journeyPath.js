@@ -2,27 +2,34 @@
 // timeline mapping scroll progress (0..1) -> position + action.
 
 export const STATIONS = [
-  { id: 'school', x: -12, label: 'School', sub: 'Jabalpur · 2000–2017' },
-  { id: 'football', x: -6, label: 'Goalkeeper', sub: 'District team · 2009–2015' },
-  { id: 'college', x: 0, label: 'College', sub: 'RGPV Bhopal · 2017–2021' },
-  { id: 'coding', x: 6, label: 'Coding', sub: 'COVID 2020 → self-taught' },
-  { id: 'work', x: 12, label: 'Accenture', sub: 'Senior Analyst · 2025–Now' },
+  { id: 'school', x: -18, label: 'School', sub: 'Jabalpur · 2000–2017' },
+  { id: 'football', x: -12, label: 'Goalkeeper', sub: 'District team · 2009–2015' },
+  { id: 'college', x: -6, label: 'College', sub: 'RGPV Bhopal · 2017–2021' },
+  { id: 'coding', x: 0, label: 'Learning to code', sub: 'COVID 2020 · self-taught' },
+  { id: 'v2', x: 6, label: 'V2 Solutions', sub: 'Associate Developer · 2021' },
+  { id: 'tcs', x: 12, label: 'TCS', sub: 'System Engineer · 2021–2025' },
+  { id: 'accenture', x: 18, label: 'Accenture', sub: 'Senior Analyst · 2025–Now' },
 ]
 
-const X = STATIONS.map((s) => s.x)
+const X = Object.fromEntries(STATIONS.map((s) => [s.id, s.x]))
 
 // [progress, x, action]. "walk" segments move x; dwell segments hold x + act.
 const KF = [
-  { p: 0.0, x: X[0], a: 'idle' },
-  { p: 0.08, x: X[0], a: 'idle' }, // arrive at school
-  { p: 0.2, x: X[1], a: 'walk' }, // walk to football
-  { p: 0.32, x: X[1], a: 'goalkeeper' }, // goalkeeper
-  { p: 0.44, x: X[2], a: 'walk' }, // walk to college
-  { p: 0.56, x: X[2], a: 'graduate' }, // graduate
-  { p: 0.68, x: X[3], a: 'walk' }, // walk to coding
-  { p: 0.8, x: X[3], a: 'coding' }, // coding
-  { p: 0.92, x: X[4], a: 'walk' }, // walk to work
-  { p: 1.0, x: X[4], a: 'working' }, // working
+  { p: 0.0, x: X.school, a: 'pickup' }, // bend + pick up the fallen bag
+  { p: 0.05, x: X.school, a: 'pickup' },
+  { p: 0.09, x: X.school, a: 'idle' }, // school (backpack on)
+  { p: 0.16, x: X.football, a: 'walk' },
+  { p: 0.23, x: X.football, a: 'goalkeeper' },
+  { p: 0.3, x: X.college, a: 'walk' },
+  { p: 0.37, x: X.college, a: 'graduate' },
+  { p: 0.44, x: X.coding, a: 'walk' },
+  { p: 0.51, x: X.coding, a: 'coding' },
+  { p: 0.58, x: X.v2, a: 'walk' },
+  { p: 0.65, x: X.v2, a: 'working' },
+  { p: 0.72, x: X.tcs, a: 'walk' },
+  { p: 0.79, x: X.tcs, a: 'working' },
+  { p: 0.86, x: X.accenture, a: 'walk' },
+  { p: 1.0, x: X.accenture, a: 'working' },
 ]
 
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v))
@@ -42,4 +49,13 @@ export function sampleJourney(progress) {
   }
   const last = KF[KF.length - 1]
   return { x: last.x, action: last.a, moving: false }
+}
+
+// Student era (carries a backpack): after the pickup, through college.
+export function wearsBackpack(progress) {
+  return progress > 0.035 && progress < 0.46
+}
+// The fallen bag is on the ground only during the opening pickup.
+export function bagOnGround(progress) {
+  return progress < 0.05
 }

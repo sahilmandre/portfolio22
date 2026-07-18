@@ -1,6 +1,7 @@
 import { Html } from '@react-three/drei'
 import { STATIONS } from './journeyPath'
-import { Building, Laptop, Football, GradCap } from '../models'
+import { Laptop, Football, GradCap } from '../models'
+import { Schoolhouse, College, House, Office } from './Buildings'
 
 function Goal({ position }) {
   const bar = '#e8e6f0'
@@ -49,9 +50,19 @@ function Desk({ position }) {
   )
 }
 
+// A desk + laptop placed in front of the boy at a working station.
+function Workstation({ x }) {
+  return (
+    <group>
+      <Desk position={[x, 0, 0.95]} />
+      <Laptop position={[x, 1.06, 0.95]} scale={0.5} />
+    </group>
+  )
+}
+
 function Label({ x, label, sub }) {
   return (
-    <Html position={[x, 2.8, -1]} center distanceFactor={12} pointerEvents="none">
+    <Html position={[x, 3.1, -1]} center distanceFactor={12} pointerEvents="none">
       <div
         style={{
           whiteSpace: 'nowrap',
@@ -62,13 +73,13 @@ function Label({ x, label, sub }) {
         }}
       >
         <div>{label}</div>
-        <div style={{ font: '500 11px Manrope, sans-serif', color: '#cbb8ee' }}>
-          {sub}
-        </div>
+        <div style={{ font: '500 11px Manrope, sans-serif', color: '#cbb8ee' }}>{sub}</div>
       </div>
     </Html>
   )
 }
+
+const X = Object.fromEntries(STATIONS.map((s) => [s.id, s.x]))
 
 export default function Stations() {
   return (
@@ -78,22 +89,31 @@ export default function Stations() {
       ))}
 
       {/* School */}
-      <Building position={[-12, 1.05, -2.6]} scale={1.4} rotation={[0, 0.4, 0]} />
+      <Schoolhouse position={[X.school, 0, -3]} rotation={[0, 0.3, 0]} />
 
-      {/* Football: goal behind boy + ball in front */}
-      <Goal position={[-6, 0, -3]} />
-      <Football position={[-6, 0.4, 1.4]} scale={0.9} />
+      {/* Football */}
+      <Goal position={[X.football, 0, -3]} />
+      <Football position={[X.football, 0.4, 1.4]} scale={0.9} />
 
       {/* College */}
-      <Building position={[0, 1.05, -2.6]} scale={1.25} rotation={[0, -0.35, 0]} />
-      <GradCap position={[0, 2.65, -1]} scale={1.1} rotation={[0.2, 0, 0]} />
+      <College position={[X.college, 0, -3]} rotation={[0, -0.25, 0]} />
+      <GradCap position={[X.college, 2.7, -1]} scale={1.1} rotation={[0.2, 0, 0]} />
 
-      {/* Coding desk (in front of the boy) */}
-      <Desk position={[6, 0, 0.95]} />
-      <Laptop position={[6, 1.06, 0.95]} scale={0.5} />
+      {/* Learning to code — at home */}
+      <House position={[X.coding, 0, -3]} />
+      <Workstation x={X.coding} />
 
-      {/* Work: taller office */}
-      <Building position={[12, 1.9, -2.6]} scale={[1.5, 2.6, 1.5]} />
+      {/* V2 Solutions — small modern office (teal accent) */}
+      <Office position={[X.v2, 0, -3]} w={1.5} h={2.4} color="#33456f" accent="#5fd0b0" rows={4} cols={3} />
+      <Workstation x={X.v2} />
+
+      {/* TCS — taller blue tower */}
+      <Office position={[X.tcs, 0, -3]} w={1.8} h={3.8} color="#2f3f7a" accent="#7fa6df" rows={6} cols={3} />
+      <Workstation x={X.tcs} />
+
+      {/* Accenture — tallest, signature purple */}
+      <Office position={[X.accenture, 0, -3]} w={2} h={5.2} color="#2b2354" accent="#b266d2" rows={8} cols={4} />
+      <Workstation x={X.accenture} />
     </group>
   )
 }

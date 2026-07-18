@@ -14,7 +14,7 @@
 /* Interactive 3D life stage — sticky canvas scrubbed by a tall scroll region */
 .life-scroll {
   position: relative;
-  height: 460vh; /* scroll length = walk length; tune for pacing */
+  height: 640vh; /* scroll length = walk length (7 stations); tune for pacing */
 }
 
 .life-stage-sticky {
