@@ -1,7 +1,45 @@
+import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import { STATIONS } from './journeyPath'
 import { Laptop, Football, GradCap } from '../models'
 import { Schoolhouse, College, House, Office } from './Buildings'
+
+// Pulsing violet light thrown by the laptop screen onto the boy while he codes.
+function ScreenGlow({ position }) {
+  const l = useRef()
+  useFrame((s) => {
+    if (l.current) {
+      const e = s.clock.elapsedTime
+      l.current.intensity = 2.4 + Math.sin(e * 8) * 0.5 + Math.sin(e * 13.7) * 0.3
+    }
+  })
+  return <pointLight ref={l} position={position} color="#7a63d2" intensity={2.4} distance={3.4} decay={2} />
+}
+
+// A rolled diploma that gently bobs — the graduation payoff.
+function Diploma({ position }) {
+  const g = useRef()
+  useFrame((s) => {
+    if (g.current) {
+      const e = s.clock.elapsedTime
+      g.current.position.y = position[1] + Math.sin(e * 1.5) * 0.07
+      g.current.rotation.z = 0.15 + Math.sin(e * 1.2) * 0.12
+    }
+  })
+  return (
+    <group ref={g} position={position} rotation={[0, 0, 0.15]}>
+      <mesh rotation={[0, 0, Math.PI / 2]} castShadow>
+        <cylinderGeometry args={[0.085, 0.085, 0.52, 14]} />
+        <meshStandardMaterial color="#f3f0ff" roughness={0.7} flatShading />
+      </mesh>
+      <mesh rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.092, 0.092, 0.12, 14]} />
+        <meshStandardMaterial color="#7a2a3a" emissive="#7a2a3a" emissiveIntensity={0.25} />
+      </mesh>
+    </group>
+  )
+}
 
 function Goal({ position }) {
   const bar = '#e8e6f0'
@@ -56,6 +94,7 @@ function Workstation({ x }) {
     <group>
       <Desk position={[x, 0, 0.95]} />
       <Laptop position={[x, 1.06, 0.95]} scale={0.5} />
+      <ScreenGlow position={[x, 1.3, 0.66]} />
     </group>
   )
 }
@@ -81,7 +120,7 @@ function Label({ x, label, sub }) {
 
 const X = Object.fromEntries(STATIONS.map((s) => [s.id, s.x]))
 
-export default function Stations() {
+export default function Stations({ envRef }) {
   return (
     <group>
       {STATIONS.map((s) => (
@@ -98,6 +137,7 @@ export default function Stations() {
       {/* College */}
       <College position={[X.college, 0, -3]} rotation={[0, -0.25, 0]} />
       <GradCap position={[X.college, 2.7, -1]} scale={1.1} rotation={[0.2, 0, 0]} />
+      <Diploma position={[X.college + 0.5, 1.4, 0.55]} />
 
       {/* Learning to code — at home */}
       <House position={[X.coding, 0, -3]} />

@@ -3,6 +3,8 @@ import { Html, useProgress } from '@react-three/drei'
 import { Suspense, useRef } from 'react'
 import BoyCharacter from './BoyCharacter'
 import Stations from './Stations'
+import Scenery from './Scenery'
+import Atmosphere from './Atmosphere'
 import Backpack from './Backpack'
 import {
   sampleJourney,
@@ -24,17 +26,19 @@ function Loader() {
 }
 
 // Drives the boy along the path from a *smoothed* scroll progress (so fast
-// scrolls ease and each phase lingers), follows with the camera, and toggles
-// backpack / ground bag / suit.
-function Rig({ progressRef, boyRef, poseRef, bagRef }) {
+// scrolls ease and each phase lingers), choreographs the camera (wide tracking
+// while walking, gentle push-in on each action beat), and toggles backpack /
+// ground bag / suit. The smoothed progress is shared via smoothRef so the
+// Atmosphere/Scenery stay in lockstep with the boy.
+function Rig({ smoothRef, progressRef, boyRef, poseRef, bagRef }) {
   const { camera } = useThree()
-  const smooth = useRef(0)
+  const dwell = useRef(0)
 
-  useFrame((_, delta) => {
+  useFrame((state, delta) => {
     const target = progressRef.current ?? 0
     // ease the progress itself — this is what gives the GSAP-like inertia
-    smooth.current += (target - smooth.current) * Math.min(1, delta * 3)
-    const p = smooth.current
+    smoothRef.current += (target - smoothRef.current) * Math.min(1, delta * 3)
+    const p = smoothRef.current
 
     const { x, action, moving } = sampleJourney(p)
     const k = Math.min(1, delta * 6)
@@ -49,10 +53,25 @@ function Rig({ progressRef, boyRef, poseRef, bagRef }) {
     poseRef.current.suit = wearsSuit(p)
     if (bagRef.current) bagRef.current.visible = bagOnGround(p)
 
-    camera.position.x += (x + 1 - camera.position.x) * k
-    camera.position.y += (2.4 - camera.position.y) * (k * 0.6)
-    camera.position.z += (7 - camera.position.z) * (k * 0.6)
-    camera.lookAt(x, 1.15, 0)
+    // Camera: wide travelling shot while walking, dolly in on the action beats.
+    const dTarget = moving ? 0 : 1
+    dwell.current += (dTarget - dwell.current) * Math.min(1, delta * 2.2)
+    const d = dwell.current
+    const closeZ =
+      action === 'goalkeeper' ? 6.7
+      : action === 'coding' || action === 'working' ? 5.1
+      : action === 'graduate' ? 5.9
+      : 5.7
+    const zTarget = 7.4 + (closeZ - 7.4) * d
+    const yTarget = 2.75 + (2.15 - 2.75) * d
+    const t = state.clock.elapsedTime
+    const swayX = Math.sin(t * 0.45) * 0.05 * d
+    const swayY = Math.sin(t * 0.6) * 0.04 * d
+
+    camera.position.x += (x + 0.7 + swayX - camera.position.x) * k
+    camera.position.y += (yTarget + swayY - camera.position.y) * (k * 0.5)
+    camera.position.z += (zTarget - camera.position.z) * (k * 0.5)
+    camera.lookAt(x + 0.15, 1.2, 0)
   })
   return null
 }
@@ -61,6 +80,8 @@ export default function Stage({ progressRef }) {
   const boyRef = useRef()
   const bagRef = useRef()
   const poseRef = useRef({ pose: 'idle', backpack: false, suit: false })
+  const smoothRef = useRef(0)
+  const envRef = useRef({ night: 0 })
   const localProgress = useRef(0)
   const pr = progressRef ?? localProgress
   const startX = STATIONS[0].x
@@ -72,28 +93,14 @@ export default function Stage({ progressRef }) {
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       camera={{ position: [startX + 1, 2.4, 7], fov: 42 }}
     >
-      <color attach="background" args={['#191527']} />
-      <fog attach="fog" args={['#191527', 16, 46]} />
+      <color attach="background" args={['#aeb8e6']} />
+      <fog attach="fog" args={['#c9c6ea', 16, 46]} />
 
-      <hemisphereLight args={['#cbb8ee', '#241a33', 1.0]} />
-      <ambientLight intensity={0.7} />
-      <directionalLight
-        position={[6, 12, 8]}
-        intensity={3.2}
-        castShadow
-        shadow-mapSize={[2048, 2048]}
-        shadow-camera-near={1}
-        shadow-camera-far={70}
-        shadow-camera-left={-26}
-        shadow-camera-right={26}
-        shadow-camera-top={16}
-        shadow-camera-bottom={-16}
-      />
-      <directionalLight position={[-6, 5, 6]} intensity={1.1} color="#b266d2" />
-      <pointLight position={[0, 4, 6]} intensity={25} distance={40} color="#8b74e0" />
+      <Atmosphere smoothRef={smoothRef} envRef={envRef} />
 
       <Suspense fallback={<Loader />}>
-        <Stations />
+        <Scenery envRef={envRef} />
+        <Stations envRef={envRef} />
 
         <group ref={boyRef} position={[startX, 0, 0]}>
           <BoyCharacter poseRef={poseRef} />
@@ -103,19 +110,15 @@ export default function Stage({ progressRef }) {
         <group ref={bagRef} position={[startX, 0.14, 0.5]} rotation={[Math.PI / 2, 0, 0.35]}>
           <Backpack />
         </group>
-
-        {/* Ground + walking path */}
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-          <planeGeometry args={[150, 60]} />
-          <meshStandardMaterial color="#221f33" roughness={1} />
-        </mesh>
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.01, 0.6]} receiveShadow>
-          <planeGeometry args={[150, 2.4]} />
-          <meshStandardMaterial color="#2b2740" roughness={1} />
-        </mesh>
       </Suspense>
 
-      <Rig progressRef={pr} boyRef={boyRef} poseRef={poseRef} bagRef={bagRef} />
+      <Rig
+        smoothRef={smoothRef}
+        progressRef={pr}
+        boyRef={boyRef}
+        poseRef={poseRef}
+        bagRef={bagRef}
+      />
     </Canvas>
   )
 }
