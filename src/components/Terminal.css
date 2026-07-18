@@ -1,0 +1,163 @@
+.term {
+  --term-bg: rgba(14, 12, 22, 0.82);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong, rgba(255, 255, 255, 0.12));
+  background: var(--term-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(178, 102, 210, 0.12), 0 0 60px -20px rgba(122, 99, 210, 0.5);
+  overflow: hidden;
+  font-family: 'SFMono-Regular', ui-monospace, 'Cascadia Code', Menlo, Consolas,
+    'Liberation Mono', monospace;
+  cursor: text;
+}
+
+/* Title bar with traffic lights */
+.term__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.term__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.term__dot--r { background: #ff5f57; }
+.term__dot--y { background: #febc2e; }
+.term__dot--g { background: #28c840; }
+
+.term__title {
+  margin-left: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--muted, #ada6ce);
+  letter-spacing: 0.02em;
+}
+
+/* Scrollable output */
+.term__body {
+  padding: 0.9rem 1rem 0.6rem;
+  min-height: 11rem;
+  max-height: 38vh;
+  overflow-y: auto;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #d7d2ea;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(178, 102, 210, 0.4) transparent;
+}
+.term__body::-webkit-scrollbar { width: 8px; }
+.term__body::-webkit-scrollbar-thumb {
+  background: rgba(178, 102, 210, 0.35);
+  border-radius: 8px;
+}
+
+.term__line {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.term__banner {
+  color: #b9b2d8;
+  margin-bottom: 0.7rem;
+}
+.term__banner code,
+.term__body code {
+  color: var(--magenta, #b266d2);
+}
+
+.term__entry { margin-bottom: 0.35rem; }
+.term__cmdline { color: #fff; }
+.term__out { color: #b3aecf; }
+
+.term__prompt {
+  color: #5fd0a0;
+  font-weight: 600;
+}
+
+/* Read-only auto-typing terminal (decorative, on the 3D laptop) */
+.term--readonly {
+  cursor: default;
+}
+.term__caret {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 1px;
+  background: var(--magenta, #b266d2);
+  vertical-align: -0.18em;
+  animation: term-blink 1.05s steps(1) infinite;
+}
+@keyframes term-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.term__link {
+  color: var(--magenta, #b266d2);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(178, 102, 210, 0.5);
+}
+.term__link:hover { color: #e0b0ff; }
+
+.term__inputline {
+  display: flex;
+  align-items: center;
+  gap: 0.5ch;
+  margin-top: 0.15rem;
+}
+
+.term__input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: #fff;
+  font: inherit;
+  caret-color: var(--magenta, #b266d2);
+  padding: 0;
+}
+
+/* Quick command chips (great on touch) */
+.term__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.6rem 0.85rem 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.term__chip {
+  font-family: inherit;
+  font-size: 0.76rem;
+  color: var(--ink-soft, #cbb8ee);
+  background: rgba(178, 102, 210, 0.1);
+  border: 1px solid rgba(178, 102, 210, 0.28);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+  transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out),
+    border-color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+.term__chip:hover {
+  background: rgba(178, 102, 210, 0.22);
+  color: #fff;
+  border-color: var(--magenta, #b266d2);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .term__body { font-size: 0.8rem; max-height: 46vh; }
+  .term__title { display: none; }
+}

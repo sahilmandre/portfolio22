@@ -30,6 +30,8 @@ const OUTFITS = {
   goalie: { top: '#26c069', legs: SKIN, shorts: '#17151f', sock: '#149a52', detail: 'goalie', bare: true, gloves: true },
   casual: { top: SHIRT, legs: PANTS, shorts: null, sock: null, detail: 'casual', bare: false },
   suit: { top: SUIT, legs: PANTS_SUIT, shorts: null, sock: null, detail: 'suit', bare: false },
+  // White shirt + blue jeans "developer at his desk" look (hero scene).
+  hero: { top: '#eceef4', legs: '#3a6197', shorts: null, sock: null, detail: 'plain', bare: false },
 }
 
 const damp = (rot, axis, target, k) => {

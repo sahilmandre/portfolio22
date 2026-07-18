@@ -58,26 +58,76 @@
   50% { transform: translate3d(-5%, -4%, 0) scale(1.12); }
 }
 
-/* 3D canvas layer — sits above the CSS orbs (its fallback), below the text */
-.hero__canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-.hero__canvas canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.hero__inner {
+/* Two-column hero: intro on the left, the 3D workspace + terminal on the right.
+   NOTE: no `width: 100%` here — it would override the .container gutter and let
+   the content run to the edges. Let .container own the width. */
+.hero__grid {
   position: relative;
   z-index: 1;
-  /* let the canvas receive pointer moves for parallax; re-enable on controls */
-  pointer-events: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
 }
-.hero__inner a,
-.hero__inner button {
-  pointer-events: auto;
+
+.hero__intro-col {
+  position: relative;
+  z-index: 2;
+  min-width: 0; /* let the big name wrap in-column instead of overflowing the edge */
+}
+
+/* Workspace: the orbitable 3D desk scene (the terminal lives on his laptop) */
+.hero__workspace {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.hero__stage {
+  position: relative;
+  width: 100%;
+  height: min(74vh, 620px);
+  border-radius: 26px;
+  /* Feather the edges so the 3D scene melts into the page — no hard dark square */
+  -webkit-mask-image: radial-gradient(125% 120% at 55% 42%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(125% 120% at 55% 42%, #000 60%, transparent 100%);
+}
+.hero__stage canvas {
+  width: 100% !important;
+  height: 100% !important;
+  cursor: grab;
+  touch-action: none;
+}
+.hero__stage canvas:active {
+  cursor: grabbing;
+}
+
+.hero__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 0.25rem;
+  transform: translateX(-50%);
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Terminal container when mounted on the 3D laptop screen */
+.hero3d-term {
+  width: 620px;
+}
+.hero3d-term .term__body {
+  min-height: 8.5rem;
+  max-height: 240px;
+}
+
+/* DOM terminal fallback (phones / reduced-motion / no WebGL) */
+.hero__terminal-wrap {
+  position: relative;
+  width: 100%;
 }
 
 .hero__intro {
@@ -153,6 +203,17 @@
   0% { transform: scaleY(0.3); opacity: 0.4; }
   50% { transform: scaleY(1); opacity: 1; }
   100% { transform: scaleY(0.3); opacity: 0.4; }
+}
+
+/* Tablet & down: stack intro over the workspace */
+@media (max-width: 960px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .hero__stage {
+    height: min(58vh, 480px);
+  }
 }
 
 @media (max-width: 600px) {

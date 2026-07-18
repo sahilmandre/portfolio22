@@ -120,9 +120,9 @@ ul {
   color: #fff;
 }
 
-/* Layout helper */
+/* Layout helper — fluid side gutters so content never hugs the edges */
 .container {
-  width: min(100% - 2.5rem, 1200px);
+  width: min(100% - clamp(2rem, 8vw, 6rem), 1240px);
   margin-inline: auto;
 }
 
