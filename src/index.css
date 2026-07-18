@@ -72,7 +72,7 @@ body {
   color: var(--muted);
   line-height: 1.65;
   min-height: 100svh;
-  overflow-x: hidden;
+  overflow-x: clip; /* prevent sideways scroll WITHOUT breaking position: sticky */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
