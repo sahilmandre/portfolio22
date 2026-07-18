@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import {
   FaSchool,
@@ -53,6 +53,21 @@ export default function Journey({ onActiveChange }) {
   const reduce = useReducedMotion()
   const wrapRef = useRef(null)
   const progressRef = useRef(0)
+  // Pause the 3D stage's render loop whenever the journey is fully off-screen,
+  // so it stops burning GPU/main-thread cycles while you read the rest of the page.
+  const [stageActive, setStageActive] = useState(true)
+
+  useEffect(() => {
+    if (reduce) return
+    const el = wrapRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(
+      ([entry]) => setStageActive(entry.isIntersecting),
+      { rootMargin: '200px' }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [reduce])
 
   useEffect(() => {
     if (reduce) return
@@ -111,7 +126,7 @@ export default function Journey({ onActiveChange }) {
                 <Suspense
                   fallback={<div className="life-stage__loading">Loading the journey…</div>}
                 >
-                  <Stage progressRef={progressRef} />
+                  <Stage progressRef={progressRef} active={stageActive} />
                 </Suspense>
               </ErrorBoundary>
               <p className="life-stage__hint">Scroll to walk through my life</p>

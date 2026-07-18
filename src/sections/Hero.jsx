@@ -4,6 +4,7 @@ import { SITE } from '../data/site'
 import SocialLinks from '../components/SocialLinks'
 import DeskTerminal from '../components/DeskTerminal'
 import ErrorBoundary from '../components/ErrorBoundary'
+import useInViewport from '../hooks/useInViewport'
 import './Hero.css'
 
 const HeroDeskCanvas = lazy(() => import('../three/HeroDeskCanvas'))
@@ -24,6 +25,8 @@ export default function Hero() {
   // Full 3D workspace on wide screens; on phones / reduced-motion the terminal
   // stands alone (still fully interactive).
   const use3D = wide && !reduce
+  // Pause the WebGL scene while the hero is scrolled out of view.
+  const [stageRef, stageInView] = useInViewport({ rootMargin: '200px' })
   const domTerminal = (
     <div className="hero__terminal-wrap">
       <DeskTerminal />
@@ -62,10 +65,10 @@ export default function Hero() {
         {/* Workspace: a 3D "me" coding at a desk. Drag to orbit / change the view. */}
         <div className="hero__workspace">
           {use3D ? (
-            <div className="hero__stage">
+            <div className="hero__stage" ref={stageRef}>
               <ErrorBoundary fallback={domTerminal}>
                 <Suspense fallback={domTerminal}>
-                  <HeroDeskCanvas />
+                  <HeroDeskCanvas active={stageInView} />
                 </Suspense>
               </ErrorBoundary>
               <p className="hero__hint" aria-hidden="true">

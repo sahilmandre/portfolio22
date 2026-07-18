@@ -83,7 +83,7 @@ function Rig({ smoothRef, progressRef, boyRef, poseRef, bagRef }) {
   return null
 }
 
-export default function Stage({ progressRef }) {
+export default function Stage({ progressRef, active = true }) {
   const boyRef = useRef()
   const bagRef = useRef()
   const poseRef = useRef({ pose: 'idle', backpack: false, outfit: 'school', age: 0 })
@@ -95,6 +95,9 @@ export default function Stage({ progressRef }) {
 
   return (
     <Canvas
+      // Pause rendering when the journey is scrolled off-screen — otherwise the
+      // rig/atmosphere keep running at 60fps and jank the rest of the page.
+      frameloop={active ? 'always' : 'never'}
       dpr={[1, 1.8]}
       shadows
       gl={{ antialias: true, powerPreference: 'high-performance' }}

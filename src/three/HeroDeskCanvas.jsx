@@ -141,11 +141,14 @@ function Desk() {
   )
 }
 
-export default function HeroDeskCanvas() {
+export default function HeroDeskCanvas({ active = true }) {
   const poseRef = useRef({ pose: 'coding', outfit: 'hero', age: 1, backpack: false })
 
   return (
     <Canvas
+      // Stop rendering entirely when scrolled out of view (otherwise the scene
+      // keeps burning GPU/main-thread cycles and janks the rest of the page).
+      frameloop={active ? 'always' : 'never'}
       dpr={[1, 1.8]}
       shadows
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
