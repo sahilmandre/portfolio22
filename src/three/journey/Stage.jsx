@@ -10,7 +10,8 @@ import {
   sampleJourney,
   wearsBackpack,
   bagOnGround,
-  wearsSuit,
+  outfitAt,
+  ageAt,
   STATIONS,
 } from './journeyPath'
 
@@ -41,6 +42,7 @@ function Rig({ smoothRef, progressRef, boyRef, poseRef, bagRef }) {
     const p = smoothRef.current
 
     const { x, action, moving } = sampleJourney(p)
+    const age = ageAt(p)
     const k = Math.min(1, delta * 6)
 
     if (boyRef.current) {
@@ -50,7 +52,8 @@ function Rig({ smoothRef, progressRef, boyRef, poseRef, bagRef }) {
     }
     poseRef.current.pose = action
     poseRef.current.backpack = wearsBackpack(p)
-    poseRef.current.suit = wearsSuit(p)
+    poseRef.current.outfit = outfitAt(p)
+    poseRef.current.age = age
     if (bagRef.current) bagRef.current.visible = bagOnGround(p)
 
     // Camera: wide travelling shot while walking, dolly in on the action beats.
@@ -62,8 +65,12 @@ function Rig({ smoothRef, progressRef, boyRef, poseRef, bagRef }) {
       : action === 'coding' || action === 'working' ? 5.1
       : action === 'graduate' ? 5.9
       : 5.7
-    const zTarget = 7.4 + (closeZ - 7.4) * d
-    const yTarget = 2.75 + (2.15 - 2.75) * d
+    // When he's little, pull the camera in a bit + drop the eyeline so the small
+    // child still fills the frame — but gently, so the floating labels stay in view.
+    const ageZoom = 0.85 + 0.15 * age
+    const zTarget = (7.4 + (closeZ - 7.4) * d) * ageZoom
+    const yTarget = (2.75 + (2.15 - 2.75) * d) * ageZoom
+    const lookAtY = 1.0 + 0.25 * age
     const t = state.clock.elapsedTime
     const swayX = Math.sin(t * 0.45) * 0.05 * d
     const swayY = Math.sin(t * 0.6) * 0.04 * d
@@ -71,7 +78,7 @@ function Rig({ smoothRef, progressRef, boyRef, poseRef, bagRef }) {
     camera.position.x += (x + 0.7 + swayX - camera.position.x) * k
     camera.position.y += (yTarget + swayY - camera.position.y) * (k * 0.5)
     camera.position.z += (zTarget - camera.position.z) * (k * 0.5)
-    camera.lookAt(x + 0.15, 1.2, 0)
+    camera.lookAt(x + 0.15, lookAtY, 0)
   })
   return null
 }
@@ -79,7 +86,7 @@ function Rig({ smoothRef, progressRef, boyRef, poseRef, bagRef }) {
 export default function Stage({ progressRef }) {
   const boyRef = useRef()
   const bagRef = useRef()
-  const poseRef = useRef({ pose: 'idle', backpack: false, suit: false })
+  const poseRef = useRef({ pose: 'idle', backpack: false, outfit: 'school', age: 0 })
   const smoothRef = useRef(0)
   const envRef = useRef({ night: 0 })
   const localProgress = useRef(0)
@@ -106,8 +113,9 @@ export default function Stage({ progressRef }) {
           <BoyCharacter poseRef={poseRef} />
         </group>
 
-        {/* Fallen bag on the ground directly in front, grabbed in the intro */}
-        <group ref={bagRef} position={[startX, 0.14, 0.5]} rotation={[Math.PI / 2, 0, 0.35]}>
+        {/* Fallen bag on the ground directly in front, grabbed in the intro.
+            Sized down to match the small child who picks it up. */}
+        <group ref={bagRef} position={[startX, 0.1, 0.42]} rotation={[Math.PI / 2, 0, 0.35]} scale={0.62}>
           <Backpack />
         </group>
       </Suspense>

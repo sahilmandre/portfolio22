@@ -52,9 +52,10 @@ export function sampleJourney(progress) {
   return { x: last.x, action: last.a, moving: false }
 }
 
-// Student era (backpack) — after the grab, through college.
+// Student era (backpack) — carried at school and again at college, but NOT during
+// the football phase (he's in his goalkeeper kit then).
 export function wearsBackpack(progress) {
-  return progress >= 0.05 && progress < 0.45
+  return (progress >= 0.05 && progress < 0.18) || (progress >= 0.33 && progress < 0.48)
 }
 // The fallen bag sits on the ground only until it's grabbed.
 export function bagOnGround(progress) {
@@ -63,4 +64,24 @@ export function bagOnGround(progress) {
 // Professional suit once he starts working (heading into V2 onward).
 export function wearsSuit(progress) {
   return progress >= 0.6
+}
+
+// Outfit per life phase, so he changes clothes as he grows:
+//   school uniform -> goalkeeper kit -> casual (college/coding) -> business suit.
+export function outfitAt(progress) {
+  const p = clamp(progress, 0, 1)
+  if (p < 0.18) return 'school' // little kid in a school uniform
+  if (p < 0.32) return 'goalie' // green goalkeeper jersey, gloves, shorts, socks
+  if (p < 0.6) return 'casual' // college + learning to code
+  return 'suit' // professional career (V2 / TCS / Accenture)
+}
+
+// Age 0..1 across the journey: a small child at school, fully grown by the time
+// he starts his career. Drives the character's overall size + head proportions
+// so the boy visibly becomes a man as he reaches each milestone (born 1997 →
+// school toddler → football boy → college young-adult → working man).
+export function ageAt(progress) {
+  const p = clamp(progress, 0, 1)
+  const a = Math.min(1, p / 0.6) // fully grown by the time he starts working
+  return a * a * (3 - 2 * a) // smoothstep — childhood lingers, then he grows fast
 }

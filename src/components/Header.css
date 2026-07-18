@@ -4,7 +4,8 @@
   z-index: var(--z-header);
   padding-block: 1.1rem;
   transition: background 0.4s var(--ease-out), padding 0.4s var(--ease-out),
-    border-color 0.4s var(--ease-out), backdrop-filter 0.4s var(--ease-out);
+    border-color 0.4s var(--ease-out), backdrop-filter 0.4s var(--ease-out),
+    transform 0.5s var(--ease-out), opacity 0.5s var(--ease-out);
   border-bottom: 1px solid transparent;
 }
 
@@ -13,6 +14,13 @@
   background: rgba(20, 18, 31, 0.72);
   backdrop-filter: blur(14px);
   border-bottom-color: var(--line);
+}
+
+/* Steps aside while the immersive 3D journey is pinned full-screen */
+.site-header.is-hidden {
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .site-header__inner {

@@ -78,6 +78,11 @@ function Desk({ position }) {
         <boxGeometry args={[1.6, 0.08, 0.8]} />
         <meshStandardMaterial color="#3a3358" flatShading />
       </mesh>
+      {/* Front modesty panel — hides the lap so the seated pose reads cleanly */}
+      <mesh position={[0, 0.72, 0.38]} castShadow>
+        <boxGeometry args={[1.6, 0.5, 0.06]} />
+        <meshStandardMaterial color="#332c50" flatShading />
+      </mesh>
       {legs.map(([x, z], i) => (
         <mesh key={i} position={[x, 0.5, z]} castShadow>
           <boxGeometry args={[0.08, 1.0, 0.08]} />
@@ -88,20 +93,41 @@ function Desk({ position }) {
   )
 }
 
-// A desk + laptop placed in front of the boy at a working station.
+// A simple office chair the boy sits on while working.
+function Chair({ position }) {
+  return (
+    <group position={position}>
+      <mesh position={[0, 0.56, 0]} castShadow>
+        <boxGeometry args={[0.62, 0.08, 0.52]} />
+        <meshStandardMaterial color="#2b2544" flatShading />
+      </mesh>
+      <mesh position={[0, 0.92, -0.28]} castShadow>
+        <boxGeometry args={[0.56, 0.66, 0.08]} />
+        <meshStandardMaterial color="#332c50" flatShading />
+      </mesh>
+      <mesh position={[0, 0.27, 0]} castShadow>
+        <cylinderGeometry args={[0.05, 0.05, 0.56, 8]} />
+        <meshStandardMaterial color="#1f1b33" flatShading />
+      </mesh>
+    </group>
+  )
+}
+
+// A desk + laptop + chair placed around the boy at a working station.
 function Workstation({ x }) {
   return (
     <group>
       <Desk position={[x, 0, 0.95]} />
       <Laptop position={[x, 1.06, 0.95]} scale={0.5} />
       <ScreenGlow position={[x, 1.3, 0.66]} />
+      <Chair position={[x, 0, -0.05]} />
     </group>
   )
 }
 
 function Label({ x, label, sub }) {
   return (
-    <Html position={[x, 3.1, -1]} center distanceFactor={12} pointerEvents="none">
+    <Html position={[x, 2.75, -1]} center distanceFactor={12} pointerEvents="none">
       <div
         style={{
           whiteSpace: 'nowrap',

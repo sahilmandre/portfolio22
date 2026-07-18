@@ -3,7 +3,7 @@ import { SITE } from '../data/site'
 import SocialLinks from './SocialLinks'
 import './Header.css'
 
-export default function Header() {
+export default function Header({ hidden = false }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -14,7 +14,9 @@ export default function Header() {
   }, [])
 
   return (
-    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+    <header
+      className={`site-header ${scrolled ? 'is-scrolled' : ''} ${hidden ? 'is-hidden' : ''}`}
+    >
       <div className="container site-header__inner">
         <a href="#top" className="wordmark" aria-label={`${SITE.name} — home`}>
           <span className="wordmark__first">Sahil</span>

@@ -49,7 +49,7 @@ function Timeline() {
   )
 }
 
-export default function Journey() {
+export default function Journey({ onActiveChange }) {
   const reduce = useReducedMotion()
   const wrapRef = useRef(null)
   const progressRef = useRef(0)
@@ -59,9 +59,14 @@ export default function Journey() {
     const onScroll = () => {
       const el = wrapRef.current
       if (!el) return
+      const rect = el.getBoundingClientRect()
       const total = el.offsetHeight - window.innerHeight
-      const scrolled = Math.min(Math.max(-el.getBoundingClientRect().top, 0), total)
+      const scrolled = Math.min(Math.max(-rect.top, 0), total)
       progressRef.current = total > 0 ? scrolled / total : 0
+      // The playground is "active" (pinned full-screen) while the tall scroll
+      // region spans the whole viewport — hide the navbar during that stretch.
+      const active = rect.top <= 0 && rect.bottom > window.innerHeight + 4
+      onActiveChange?.(active)
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -69,8 +74,9 @@ export default function Journey() {
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
+      onActiveChange?.(false)
     }
-  }, [reduce])
+  }, [reduce, onActiveChange])
 
   return (
     <section id="journey" className="section journey">
