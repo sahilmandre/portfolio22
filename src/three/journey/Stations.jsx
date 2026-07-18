@@ -93,7 +93,7 @@ export default function Stations() {
 
       {/* Football */}
       <Goal position={[X.football, 0, -3]} />
-      <Football position={[X.football, 0.4, 1.4]} scale={0.9} />
+      <Football position={[X.football + 0.6, 0.28, 1.1]} scale={0.34} />
 
       {/* College */}
       <College position={[X.college, 0, -3]} rotation={[0, -0.25, 0]} />

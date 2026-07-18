@@ -100,7 +100,7 @@ export default function Stage({ progressRef }) {
         </group>
 
         {/* Fallen bag on the ground directly in front, grabbed in the intro */}
-        <group ref={bagRef} position={[startX, 0.16, 0.62]} rotation={[Math.PI / 2, 0, 0.35]}>
+        <group ref={bagRef} position={[startX, 0.14, 0.5]} rotation={[Math.PI / 2, 0, 0.35]}>
           <Backpack />
         </group>
 

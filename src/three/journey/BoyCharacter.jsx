@@ -61,10 +61,10 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
 
     switch (pose) {
       case 'pickup': {
-        upperX = 0.9
-        lArmX = -0.55
-        rArmX = -0.55
-        rootY = -0.05
+        upperX = 0.62 // reach down, not fold in half
+        lArmX = -0.9
+        rArmX = -0.9
+        rootY = -0.14
         headY = 0
         break
       }

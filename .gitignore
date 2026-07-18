@@ -24,3 +24,7 @@ pnpm-debug.log*
 # System
 .DS_Store
 Thumbs.db
+
+# Local dev-only screenshot/util scripts (not part of the app)
+_*.mjs
+_shots/

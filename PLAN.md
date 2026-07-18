@@ -134,6 +134,8 @@ Original 3D was abstract floating objects — Sahil wants a **boy avatar living 
 - [x] **Round 2** — life path (journeyPath.js: 5 stations + keyframe sampler), station environments (school, football goal+ball, college+cap, coding desk+laptop, office) with floating labels, scroll-driven walk + camera follow (Stage Rig), tall sticky scroll region + reduced-motion fallback.
 - [x] **Round 3 (code)** — pose system on the rigged boy: idle / walk / goalkeeper / graduate / coding / working, damped transitions via shared poseRef.
 - [ ] **Calibrate (needs screenshots)** — pose/prop/camera positions are first-guess; tune from Sahil's scroll screenshots (e.g. desk/laptop height vs typing hands, goal scale, camera framing per station).
+- [x] **Self-screenshot loop** — headless Puppeteer script (`_shots.mjs`, gitignored; puppeteer kept local, NOT committed) drives the dev server at :5173, scrolls the journey, saves frames to scratchpad so Claude can *see* and self-calibrate.
+- [x] **Calibrated from screenshots** — shrank the oversized football; softened the pickup bend (reach-down, not fold); moved the ground bag under his hands. Verified: walking, poses, suit+tie at work, casual at coding, distinct buildings all read well.
 - [ ] **Round 4** — immersion polish (lighting mood, camera choreography, transitions, textures/ground detail)
 
 #### Phase 3 — remaining/optional (needs visual iteration)
