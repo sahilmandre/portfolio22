@@ -1,0 +1,125 @@
+/* Full-screen terminal boot loader. Sits above everything and fades out once
+   the real 0->100% completes. */
+.pre {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-toast);
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(122, 99, 210, 0.18), transparent 60%),
+    radial-gradient(90% 80% at 80% 100%, rgba(178, 102, 210, 0.14), transparent 60%),
+    var(--bg);
+  opacity: 1;
+  transition: opacity 0.55s var(--ease-out);
+  will-change: opacity;
+}
+.pre--leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pre__term {
+  width: min(92vw, 560px);
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  background: rgba(14, 12, 22, 0.92);
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(178, 102, 210, 0.14), 0 0 90px -30px rgba(122, 99, 210, 0.6);
+  overflow: hidden;
+  font-family: 'SFMono-Regular', ui-monospace, 'Cascadia Code', Menlo, Consolas,
+    'Liberation Mono', monospace;
+}
+
+.pre__topbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.pre__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+.pre__dot--r { background: #ff5f57; }
+.pre__dot--y { background: #febc2e; }
+.pre__dot--g { background: #28c840; }
+.pre__title {
+  margin-left: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.pre__body {
+  padding: 1.1rem 1.15rem 0.9rem;
+  height: 11.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #d7d2ea;
+}
+.pre__line {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.pre__prompt {
+  color: #5fd0a0;
+  font-weight: 600;
+}
+.pre__caret {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1.05em;
+  margin-left: 1px;
+  background: var(--magenta);
+  vertical-align: -0.18em;
+  animation: pre-blink 1.05s steps(1) infinite;
+}
+@keyframes pre-blink {
+  50% { opacity: 0; }
+}
+
+.pre__foot {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1.15rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
+}
+.pre__track {
+  position: relative;
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.pre__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent-grad);
+  transition: width 0.2s var(--ease-out);
+}
+.pre__pct {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  min-width: 3.2ch;
+  text-align: right;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pre { transition: opacity 0.2s linear; }
+  .pre__caret { animation: none; }
+  .pre__fill { transition: none; }
+}
