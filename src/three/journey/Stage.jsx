@@ -4,7 +4,13 @@ import { Suspense, useRef } from 'react'
 import BoyCharacter from './BoyCharacter'
 import Stations from './Stations'
 import Backpack from './Backpack'
-import { sampleJourney, wearsBackpack, bagOnGround, STATIONS } from './journeyPath'
+import {
+  sampleJourney,
+  wearsBackpack,
+  bagOnGround,
+  wearsSuit,
+  STATIONS,
+} from './journeyPath'
 
 function Loader() {
   const { progress } = useProgress()
@@ -17,29 +23,36 @@ function Loader() {
   )
 }
 
-// Drives the boy along the path from scroll progress + follows with the camera,
-// and toggles the worn backpack / the fallen ground bag.
+// Drives the boy along the path from a *smoothed* scroll progress (so fast
+// scrolls ease and each phase lingers), follows with the camera, and toggles
+// backpack / ground bag / suit.
 function Rig({ progressRef, boyRef, poseRef, bagRef }) {
   const { camera } = useThree()
+  const smooth = useRef(0)
+
   useFrame((_, delta) => {
-    const k = Math.min(1, delta * 4)
-    const p = progressRef.current ?? 0
+    const target = progressRef.current ?? 0
+    // ease the progress itself — this is what gives the GSAP-like inertia
+    smooth.current += (target - smooth.current) * Math.min(1, delta * 3)
+    const p = smooth.current
+
     const { x, action, moving } = sampleJourney(p)
+    const k = Math.min(1, delta * 6)
 
     if (boyRef.current) {
-      boyRef.current.position.x += (x - boyRef.current.position.x) * k
+      boyRef.current.position.x = x
       const targetRot = moving ? Math.PI / 2 : 0
       boyRef.current.rotation.y += (targetRot - boyRef.current.rotation.y) * k
     }
     poseRef.current.pose = action
     poseRef.current.backpack = wearsBackpack(p)
+    poseRef.current.suit = wearsSuit(p)
     if (bagRef.current) bagRef.current.visible = bagOnGround(p)
 
-    const bx = boyRef.current ? boyRef.current.position.x : x
-    camera.position.x += (bx + 1 - camera.position.x) * (k * 0.8)
+    camera.position.x += (x + 1 - camera.position.x) * k
     camera.position.y += (2.4 - camera.position.y) * (k * 0.6)
     camera.position.z += (7 - camera.position.z) * (k * 0.6)
-    camera.lookAt(bx, 1.15, 0)
+    camera.lookAt(x, 1.15, 0)
   })
   return null
 }
@@ -47,7 +60,7 @@ function Rig({ progressRef, boyRef, poseRef, bagRef }) {
 export default function Stage({ progressRef }) {
   const boyRef = useRef()
   const bagRef = useRef()
-  const poseRef = useRef({ pose: 'idle', backpack: false })
+  const poseRef = useRef({ pose: 'idle', backpack: false, suit: false })
   const localProgress = useRef(0)
   const pr = progressRef ?? localProgress
   const startX = STATIONS[0].x
@@ -86,8 +99,8 @@ export default function Stage({ progressRef }) {
           <BoyCharacter poseRef={poseRef} />
         </group>
 
-        {/* The fallen bag on the ground at the start (picked up in the intro) */}
-        <group ref={bagRef} position={[startX + 0.9, 0.16, 0.7]} rotation={[Math.PI / 2, 0, 0.35]}>
+        {/* Fallen bag on the ground directly in front, grabbed in the intro */}
+        <group ref={bagRef} position={[startX, 0.16, 0.62]} rotation={[Math.PI / 2, 0, 0.35]}>
           <Backpack />
         </group>
 

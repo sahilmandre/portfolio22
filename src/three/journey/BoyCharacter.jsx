@@ -4,16 +4,21 @@ import Backpack from './Backpack'
 
 // Stylized low-poly boy from primitives, rigged as a hierarchy:
 //   root -> hips -> (upper: torso/head/arms + backpack) + legs
-// The `upper` group lets him bend at the waist (pickup). Pose is read from a
-// shared ref (poseRef.current.pose / .backpack) so the scroll rig drives it
-// without React re-renders.
+// The `upper` group bends at the waist (pickup). Pose + attire are read from a
+// shared ref (poseRef.current.pose / .backpack / .suit) so the scroll rig can
+// drive it without React re-renders.
 
 const SKIN = '#c08c63'
 const SKIN_DARK = '#a9744f'
 const HAIR = '#241d2b'
 const SHIRT = '#3f4f7d'
 const SHIRT_DARK = '#33406a'
+const SUIT = '#242a3d'
+const LAPEL = '#171b28'
+const TIE = '#7a2a3a'
+const WHITE = '#e8e6f0'
 const PANTS = '#2c2942'
+const PANTS_SUIT = '#20243a'
 const SHOE = '#17151f'
 const FRAME = '#141019'
 
@@ -30,10 +35,18 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
   const rLeg = useRef()
   const head = useRef()
   const bp = useRef()
+  const casual = useRef()
+  const suitG = useRef()
+  const torsoMat = useRef()
+  const lSleeveMat = useRef()
+  const rSleeveMat = useRef()
+  const lPantMat = useRef()
+  const rPantMat = useRef()
 
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime
     const pose = poseRef?.current?.pose || 'idle'
+    const suit = !!poseRef?.current?.suit
     const k = Math.min(1, delta * 10)
 
     let rootY = 0
@@ -48,10 +61,10 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
 
     switch (pose) {
       case 'pickup': {
-        upperX = 1.0 // bend forward at the waist
-        lArmX = -1.35
-        rArmX = -1.35
-        rootY = -0.08
+        upperX = 0.9
+        lArmX = -0.55
+        rArmX = -0.55
+        rootY = -0.05
         headY = 0
         break
       }
@@ -113,6 +126,17 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
     if (rLeg.current) damp(rLeg.current.rotation, 'x', rLegX, k)
     if (head.current) damp(head.current.rotation, 'y', headY, k)
     if (bp.current) bp.current.visible = !!poseRef?.current?.backpack
+
+    // Attire swap: casual -> professional suit when working.
+    const shirt = suit ? SUIT : SHIRT
+    if (torsoMat.current) torsoMat.current.color.set(shirt)
+    if (lSleeveMat.current) lSleeveMat.current.color.set(shirt)
+    if (rSleeveMat.current) rSleeveMat.current.color.set(shirt)
+    const pant = suit ? PANTS_SUIT : PANTS
+    if (lPantMat.current) lPantMat.current.color.set(pant)
+    if (rPantMat.current) rPantMat.current.color.set(pant)
+    if (casual.current) casual.current.visible = !suit
+    if (suitG.current) suitG.current.visible = suit
   })
 
   return (
@@ -122,22 +146,46 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
         <group ref={upper}>
           <mesh position={[0, 0.26, 0]} castShadow>
             <boxGeometry args={[0.5, 0.62, 0.28]} />
-            <meshStandardMaterial color={SHIRT} flatShading roughness={0.8} />
-          </mesh>
-          <mesh position={[0, 0.26, 0.145]}>
-            <boxGeometry args={[0.08, 0.62, 0.01]} />
-            <meshStandardMaterial color={SHIRT_DARK} flatShading />
-          </mesh>
-          <mesh position={[0, 0.34, 0.145]}>
-            <boxGeometry args={[0.5, 0.06, 0.01]} />
-            <meshStandardMaterial color={SHIRT_DARK} flatShading />
-          </mesh>
-          <mesh position={[0, 0.56, 0.02]} rotation={[0.2, 0, 0]}>
-            <boxGeometry args={[0.34, 0.12, 0.28]} />
-            <meshStandardMaterial color={SHIRT_DARK} flatShading />
+            <meshStandardMaterial ref={torsoMat} color={SHIRT} flatShading roughness={0.8} />
           </mesh>
 
-          {/* Backpack (worn on the back) */}
+          {/* Casual details (plaid + soft collar) */}
+          <group ref={casual}>
+            <mesh position={[0, 0.26, 0.145]}>
+              <boxGeometry args={[0.08, 0.62, 0.01]} />
+              <meshStandardMaterial color={SHIRT_DARK} flatShading />
+            </mesh>
+            <mesh position={[0, 0.34, 0.145]}>
+              <boxGeometry args={[0.5, 0.06, 0.01]} />
+              <meshStandardMaterial color={SHIRT_DARK} flatShading />
+            </mesh>
+            <mesh position={[0, 0.56, 0.02]} rotation={[0.2, 0, 0]}>
+              <boxGeometry args={[0.34, 0.12, 0.28]} />
+              <meshStandardMaterial color={SHIRT_DARK} flatShading />
+            </mesh>
+          </group>
+
+          {/* Suit details (collar + tie + lapels) */}
+          <group ref={suitG} visible={false}>
+            <mesh position={[0, 0.5, 0.145]}>
+              <boxGeometry args={[0.2, 0.16, 0.02]} />
+              <meshStandardMaterial color={WHITE} flatShading />
+            </mesh>
+            <mesh position={[0, 0.32, 0.155]}>
+              <boxGeometry args={[0.06, 0.34, 0.02]} />
+              <meshStandardMaterial color={TIE} flatShading />
+            </mesh>
+            <mesh position={[-0.12, 0.42, 0.15]} rotation={[0, 0, 0.32]}>
+              <boxGeometry args={[0.12, 0.34, 0.03]} />
+              <meshStandardMaterial color={LAPEL} flatShading />
+            </mesh>
+            <mesh position={[0.12, 0.42, 0.15]} rotation={[0, 0, -0.32]}>
+              <boxGeometry args={[0.12, 0.34, 0.03]} />
+              <meshStandardMaterial color={LAPEL} flatShading />
+            </mesh>
+          </group>
+
+          {/* Backpack (school/college) */}
           <group ref={bp} position={[0, 0.28, -0.22]} visible={false}>
             <Backpack />
           </group>
@@ -159,7 +207,7 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
               <meshStandardMaterial color={SKIN} flatShading />
             </mesh>
 
-            {/* Fuller wavy hair */}
+            {/* Hair */}
             <mesh position={[0, 0.04, -0.03]} castShadow>
               <sphereGeometry args={[0.195, 20, 20]} />
               <meshStandardMaterial color={HAIR} flatShading roughness={1} />
@@ -204,7 +252,7 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
           <group ref={lArm} position={[-0.31, 0.5, 0]}>
             <mesh position={[0, -0.24, 0]} castShadow>
               <capsuleGeometry args={[0.07, 0.4, 4, 10]} />
-              <meshStandardMaterial color={SHIRT} flatShading roughness={0.8} />
+              <meshStandardMaterial ref={lSleeveMat} color={SHIRT} flatShading roughness={0.8} />
             </mesh>
             <mesh position={[0, -0.5, 0]} castShadow>
               <sphereGeometry args={[0.07, 12, 12]} />
@@ -214,7 +262,7 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
           <group ref={rArm} position={[0.31, 0.5, 0]}>
             <mesh position={[0, -0.24, 0]} castShadow>
               <capsuleGeometry args={[0.07, 0.4, 4, 10]} />
-              <meshStandardMaterial color={SHIRT} flatShading roughness={0.8} />
+              <meshStandardMaterial ref={rSleeveMat} color={SHIRT} flatShading roughness={0.8} />
             </mesh>
             <mesh position={[0, -0.5, 0]} castShadow>
               <sphereGeometry args={[0.07, 12, 12]} />
@@ -223,11 +271,11 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
           </group>
         </group>
 
-        {/* ---- Legs (not part of upper, so they stay planted when bending) ---- */}
+        {/* ---- Legs ---- */}
         <group ref={lLeg} position={[-0.13, 0, 0]}>
           <mesh position={[0, -0.45, 0]} castShadow>
             <capsuleGeometry args={[0.09, 0.66, 4, 10]} />
-            <meshStandardMaterial color={PANTS} flatShading roughness={0.9} />
+            <meshStandardMaterial ref={lPantMat} color={PANTS} flatShading roughness={0.9} />
           </mesh>
           <mesh position={[0, -0.86, 0.06]} castShadow>
             <boxGeometry args={[0.14, 0.1, 0.26]} />
@@ -237,7 +285,7 @@ export default function BoyCharacter({ poseRef, speed = 6, ...props }) {
         <group ref={rLeg} position={[0.13, 0, 0]}>
           <mesh position={[0, -0.45, 0]} castShadow>
             <capsuleGeometry args={[0.09, 0.66, 4, 10]} />
-            <meshStandardMaterial color={PANTS} flatShading roughness={0.9} />
+            <meshStandardMaterial ref={rPantMat} color={PANTS} flatShading roughness={0.9} />
           </mesh>
           <mesh position={[0, -0.86, 0.06]} castShadow>
             <boxGeometry args={[0.14, 0.1, 0.26]} />

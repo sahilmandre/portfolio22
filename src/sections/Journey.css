@@ -14,7 +14,10 @@
 /* Interactive 3D life stage — sticky canvas scrubbed by a tall scroll region */
 .life-scroll {
   position: relative;
-  height: 640vh; /* scroll length = walk length (7 stations); tune for pacing */
+  /* Scroll length = how slow the walk feels. Taller = each phase lingers longer
+     (combined with the eased progress in the Rig this gives the GSAP feel).
+     Tune this single number to taste. */
+  height: 900vh;
 }
 
 .life-stage-sticky {

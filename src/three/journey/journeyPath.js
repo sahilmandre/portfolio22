@@ -13,22 +13,23 @@ export const STATIONS = [
 
 const X = Object.fromEntries(STATIONS.map((s) => [s.id, s.x]))
 
-// [progress, x, action]. "walk" segments move x; dwell segments hold x + act.
+// [progress, x, action]. Dwell segments hold x (perform action); walk segments
+// move x. Dwells are wide so each phase lingers (GSAP-like).
 const KF = [
-  { p: 0.0, x: X.school, a: 'pickup' }, // bend + pick up the fallen bag
+  { p: 0.0, x: X.school, a: 'pickup' }, // bend + grab the fallen bag
   { p: 0.05, x: X.school, a: 'pickup' },
-  { p: 0.09, x: X.school, a: 'idle' }, // school (backpack on)
-  { p: 0.16, x: X.football, a: 'walk' },
-  { p: 0.23, x: X.football, a: 'goalkeeper' },
-  { p: 0.3, x: X.college, a: 'walk' },
-  { p: 0.37, x: X.college, a: 'graduate' },
-  { p: 0.44, x: X.coding, a: 'walk' },
-  { p: 0.51, x: X.coding, a: 'coding' },
-  { p: 0.58, x: X.v2, a: 'walk' },
-  { p: 0.65, x: X.v2, a: 'working' },
-  { p: 0.72, x: X.tcs, a: 'walk' },
-  { p: 0.79, x: X.tcs, a: 'working' },
-  { p: 0.86, x: X.accenture, a: 'walk' },
+  { p: 0.11, x: X.school, a: 'idle' }, // stand at school (backpack on)
+  { p: 0.18, x: X.football, a: 'walk' },
+  { p: 0.26, x: X.football, a: 'goalkeeper' },
+  { p: 0.33, x: X.college, a: 'walk' },
+  { p: 0.41, x: X.college, a: 'graduate' },
+  { p: 0.48, x: X.coding, a: 'walk' },
+  { p: 0.56, x: X.coding, a: 'coding' },
+  { p: 0.63, x: X.v2, a: 'walk' }, // suit on from here
+  { p: 0.71, x: X.v2, a: 'working' },
+  { p: 0.78, x: X.tcs, a: 'walk' },
+  { p: 0.86, x: X.tcs, a: 'working' },
+  { p: 0.93, x: X.accenture, a: 'walk' },
   { p: 1.0, x: X.accenture, a: 'working' },
 ]
 
@@ -51,11 +52,15 @@ export function sampleJourney(progress) {
   return { x: last.x, action: last.a, moving: false }
 }
 
-// Student era (carries a backpack): after the pickup, through college.
+// Student era (backpack) — after the grab, through college.
 export function wearsBackpack(progress) {
-  return progress > 0.035 && progress < 0.46
+  return progress >= 0.05 && progress < 0.45
 }
-// The fallen bag is on the ground only during the opening pickup.
+// The fallen bag sits on the ground only until it's grabbed.
 export function bagOnGround(progress) {
   return progress < 0.05
+}
+// Professional suit once he starts working (heading into V2 onward).
+export function wearsSuit(progress) {
+  return progress >= 0.6
 }
