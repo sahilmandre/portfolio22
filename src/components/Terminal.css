@@ -42,12 +42,16 @@
   letter-spacing: 0.02em;
 }
 
-/* Scrollable output */
+/* Output. FIXED height so the auto-typing never reflows the box (the old
+   min/max-height let it grow line-by-line, and `vh` jumped when the mobile
+   toolbar showed/hid). Lines stack up from the bottom like a real shell. */
 .term__body {
   padding: 0.9rem 1rem 0.6rem;
-  min-height: 11rem;
-  max-height: 38vh;
-  overflow-y: auto;
+  height: 15rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   font-size: 0.86rem;
   line-height: 1.55;
   color: #d7d2ea;
@@ -158,6 +162,6 @@
 }
 
 @media (max-width: 600px) {
-  .term__body { font-size: 0.8rem; max-height: 46vh; }
+  .term__body { font-size: 0.8rem; }
   .term__title { display: none; }
 }
