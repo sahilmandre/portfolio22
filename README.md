@@ -36,7 +36,7 @@ npm run preview  # serve the production build
 ```
 public/
   assets/            image assets
-  resume/            SahilMandre_resume_2026.pdf
+  resume/            Sahil_Mandre_FullStack_Developer_Resume.pdf
   legacy/2022/       archived Angular portfolio (noindex), still live
   robots.txt · sitemap.xml
 src/

@@ -10,7 +10,7 @@ export const SITE = {
   location: 'Indore, India',
   email: 'sahilmandre@gmail.com',
   phone: '+917987391196',
-  resume: '/resume/SahilMandre_resume_2026.pdf',
+  resume: '/resume/Sahil_Mandre_FullStack_Developer_Resume.pdf',
   yearsExperience: 5,
 }
 

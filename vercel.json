@@ -3,5 +3,8 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "redirects": [
+    { "source": "/resume/SahilMandre_resume_2026.pdf", "destination": "/resume/Sahil_Mandre_FullStack_Developer_Resume.pdf", "permanent": true }
+  ]
 }

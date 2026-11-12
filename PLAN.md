@@ -73,7 +73,7 @@ A "Portfolio Evolution" section showing each past version by year (screenshot + 
 - **Portfolio versions (Evolution/Time Machine)**: 2021 = ReactJS (`potfolio-sahil.web.app`, live) · 2022 = Angular (this repo → preserve at `/legacy/2022/`) · 2026 = this new 3D React site. *(2023 React+Tailwind+Aceternity — URL TBD, optional.)*
 - **Beyond code**: Co-founded NGO **"Mission Azad"** (self-defense training, 1,20,000+ women/girls); College Fest Lead (event anchor + mimicry artist).
 - **Awards**: On-the-Spot (Team), Best Team, Learning Achievement. **Certs**: GenAI (Microsoft), GitHub Professional, Ultimate React Course 2024 (70h).
-- **Resume download**: `SahilMandre_resume_2026.pdf`.
+- **Resume download**: `Sahil_Mandre_FullStack_Developer_Resume.pdf`.
 
 ---
 
