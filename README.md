@@ -51,10 +51,29 @@ src/
 To swap in a real profile photo, drop `me.webp` into `public/assets/images/` —
 the About section picks it up automatically (falls back to a monogram otherwise).
 
+### Updating the resume
+
+There is exactly **one** resume file:
+`public/resume/Sahil_Mandre_FullStack_Developer_Resume.pdf`.
+
+1. Overwrite that file with the new PDF (keep the same file name).
+2. Commit and push to `main` — Vercel redeploys automatically.
+
+Every download button (Header, Hero, Footer) reads `SITE.resume` in
+`src/data/site.js`, and every old resume URL — including the legacy 2022 site's
+"Download here" link — redirects to it via `vercel.json`, so nothing else needs
+touching.
+
+**Renaming the file?** Update `SITE.resume`, change every `destination` in
+`vercel.json` `redirects`, and add a redirect from the old name to the new one.
+
 ## Deployment
 
-Vercel builds from `vercel.json` (Vite preset, output `dist`). Previous versions
-of the site are preserved under `public/legacy/` and excluded from search via
+`main` is the production branch: push to `main` → Vercel builds from
+`vercel.json` (Vite preset, output `dist`) and updates
+https://portfolio-sahilmandre.vercel.app. Pushes to other branches get preview
+URLs. Previous versions of the site are preserved under `public/legacy/` (e.g.
+`/legacy/2022/`, the old Angular site) and excluded from search via
 `robots.txt` + a per-page `noindex`.
 
 ---

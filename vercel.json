@@ -5,6 +5,10 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "redirects": [
-    { "source": "/resume/SahilMandre_resume_2026.pdf", "destination": "/resume/Sahil_Mandre_FullStack_Developer_Resume.pdf", "permanent": true }
+    { "source": "/resume/SahilMandre_resume_2026.pdf", "destination": "/resume/Sahil_Mandre_FullStack_Developer_Resume.pdf", "permanent": false },
+    { "source": "/assets/images/Footer/SahilMandre_ReactDeveloper_Resume.pdf", "destination": "/resume/Sahil_Mandre_FullStack_Developer_Resume.pdf", "permanent": false },
+    { "source": "/assets/images/Footer/Sahil_Mandre_Resume.pdf", "destination": "/resume/Sahil_Mandre_FullStack_Developer_Resume.pdf", "permanent": false },
+    { "source": "/legacy/2022/assets/images/Footer/SahilMandre_ReactDeveloper_Resume.pdf", "destination": "/resume/Sahil_Mandre_FullStack_Developer_Resume.pdf", "permanent": false },
+    { "source": "/legacy/2022/assets/images/Footer/Sahil_Mandre_Resume.pdf", "destination": "/resume/Sahil_Mandre_FullStack_Developer_Resume.pdf", "permanent": false }
   ]
 }
