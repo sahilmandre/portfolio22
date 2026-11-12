@@ -1,0 +1,69 @@
+.beyond__features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: clamp(1.25rem, 0.75rem + 1.5vw, 2rem);
+  margin-bottom: clamp(2rem, 1rem + 3vw, 3.5rem);
+}
+
+.beyond__card {
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, var(--surface), var(--bg-panel));
+}
+
+.beyond__icon {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 14px;
+  font-size: 1.4rem;
+  color: #fff;
+  background: var(--accent-grad);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 12px 30px -14px rgba(178, 102, 210, 0.8);
+}
+
+.beyond__title {
+  font-size: var(--step-h3);
+  margin-bottom: 0.6rem;
+}
+
+.beyond__blurb {
+  color: var(--muted);
+}
+
+.beyond__lists {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+.beyond__list-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.25rem;
+  margin-bottom: 1.1rem;
+  color: var(--ink);
+}
+.beyond__list-title svg {
+  color: var(--magenta);
+}
+
+.beyond__list ul {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.beyond__list li {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--ink-soft);
+}
+.beyond__list li svg {
+  color: var(--violet);
+  flex-shrink: 0;
+}

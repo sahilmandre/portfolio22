@@ -1,0 +1,39 @@
+.section {
+  position: relative;
+  padding-block: var(--space-section);
+}
+
+.section__head {
+  max-width: 60ch;
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+}
+
+.section__head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section__title {
+  font-size: var(--step-h2);
+  position: relative;
+}
+
+.section__title::after {
+  content: '';
+  display: block;
+  width: 3.25rem;
+  height: 3px;
+  margin-top: 1.1rem;
+  border-radius: 3px;
+  background: var(--accent-grad);
+}
+
+.section__head--center .section__title::after {
+  margin-inline: auto;
+}
+
+.section__lead {
+  margin-top: 1.4rem;
+  font-size: var(--step-lead);
+  color: var(--muted);
+}
